@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EagleVoice| PSAC Insight Portal</title>
+    <title>EagleVoice | PSAC Insight Portal</title>
     <link rel="icon" type="image/svg+xml" href="android-chrome-512x512.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -47,7 +47,68 @@
             z-index: 2;
         }
 
-        /* Animation States */
+        .mission-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            z-index: 10;
+            padding: 30px;
+            box-sizing: border-box;
+            border: 1px solid var(--unt-green);
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+        }
+
+        .mission-overlay.show {
+            display: flex;
+        }
+
+        .mission-content h3 {
+            color: var(--unt-green);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 1.1rem;
+        }
+
+        .mission-content p {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .info-trigger {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .info-trigger:hover {
+            color: var(--unt-green);
+        }
+
+        .close-btn {
+            background: transparent;
+            border: 1px solid var(--unt-green);
+            color: var(--unt-green);
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
         .card.submitted {
             transform: translateY(-30px);
             opacity: 0;
@@ -143,6 +204,12 @@
             line-height: 1.6;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            transition: opacity 0.4s ease; 
+        }
+
+        .disclaimer.hide {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .sr-only {
@@ -160,13 +227,27 @@
 <body>
 
     <main class="card" id="mainCard">
+       
+       <div id="missionPopup" class="mission-overlay">
+    <div class="mission-content">
+        <h3>MISSION BRIEFING</h3>
+        <p><strong>EagleVoice</strong> is a data-driven initiative designed to bridge the gap between the student body and university leadership.</p>
+        
+        <p style="margin-top: 10px;">Our committee conducts <strong>bi-weekly meetings</strong> to analyze student input. High-priority insights and recurring themes from these transmissions may be formally presented for consideration to <strong>President Harrison Keller</strong>.</p>
+        
+        <button type="button" onclick="toggleMission()" class="close-btn">ACKNOWLEDGE</button>
+    </div>
+</div>
+
+        <div class="info-trigger" onclick="toggleMission()">[?] PROJECT INFO</div>
+
         <div class="header-section">
             <h1>EagleVoice</h1>
             <p class="subtitle">Student Advisory Insight Portal</p>
         </div>
         
         <label for="thought-input" class="sr-only">Input your feedback</label>
-        <textarea id="thought-input" placeholder="Enter formal feedback or suggestions for the PSAC..."></textarea>
+        <textarea id="thought-input" placeholder="What should the President know? Share your anonymous thoughts on campus life or student retention..."></textarea>
         
         <button class="submit-btn" onclick="handleSubmit()">Transmit Feedback</button>
     </main>
@@ -174,65 +255,78 @@
     <div class="success-message" id="successMsg">
         <div class="checkmark">✓</div>
         <h2 style="text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Transmission Complete</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 25px;">Thank you, Alex Martin. Your insight has been securely logged.</p>
+        <p style="color: var(--text-secondary); margin-bottom: 25px;">Your insight has been securely logged for committee review.</p>
         <button onclick="resetForm()" style="background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; font-weight: 600;">Submit New Entry</button>
     </div>
 
-    <footer class="disclaimer">
+    <footer class="disclaimer" id="footerSection">
         <div style="margin-bottom: 8px; font-weight: 700; color: white; letter-spacing: 0.1em;">DEVELOPED BY ALEX MARTIN</div>
         Independent Student Initiative • Not officially affiliated with UNT • 
         Developed for the President’s Student Advisory Committee
     </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-    const supabaseUrl = 'https://vzdfbhlkgilljjwnedcs.supabase.co';
-    const supabaseKey = 'sb_publishable_2mvbzN0u7AYrWlECVKoywQ_nQyQ1vdo';
-    
-    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-
-    async function handleSubmit() {
-        const card = document.getElementById('mainCard');
-        const success = document.getElementById('successMsg');
-        const input = document.getElementById('thought-input');
-        const feedback = input.value.trim();
-
-        if (feedback === "") {
-            input.style.borderColor = "red";
-            return;
-        }
-
-        const { data, error } = await supabaseClient
-        .from('Eagle Voice') 
-            .insert([{ context: feedback }]);
-
-        if (error) {
-            console.error('Error:', error.message);
-            alert("Transmission failed: " + error.message);
-            return;
-        }
-
-        card.classList.add('submitted');
-        success.classList.add('show');
-    }
-
-    function resetForm() {
-        const card = document.getElementById('mainCard');
-        const success = document.getElementById('successMsg');
-        const input = document.getElementById('thought-input');
+    <script>
+        const supabaseUrl = 'https://vzdfbhlkgilljjwnedcs.supabase.co';
+        const supabaseKey = 'sb_publishable_2mvbzN0u7AYrWlECVKoywQ_nQyQ1vdo';
         
-        input.value = '';
-        input.style.borderColor = "#333333";
-        card.classList.remove('submitted');
-        success.classList.remove('show');
-    }
-</script>
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
+        function toggleMission() {
+            const popup = document.getElementById('missionPopup');
+            popup.classList.toggle('show');
+        }
 
+        async function handleSubmit() {
+            const card = document.getElementById('mainCard');
+            const success = document.getElementById('successMsg');
+            const footer = document.getElementById('footerSection'); // Get footer
+            const input = document.getElementById('thought-input');
+            const feedback = input.value.trim();
+
+            if (feedback === "") {
+                input.style.borderColor = "red";
+                return;
+            }
+
+            const { data, error } = await supabaseClient
+            .from('Eagle Voice') 
+                .insert([{ context: feedback }]);
+
+            if (error) {
+                console.error('Error:', error.message);
+                alert("Transmission failed: " + error.message);
+                return;
+            }
+
+            card.classList.add('submitted');
+            success.classList.add('show');
+            footer.classList.add('hide'); // Hide footer on submit
+        }
+
+       function resetForm() {
+    const card = document.getElementById('mainCard');
+    const success = document.getElementById('successMsg');
+    const footer = document.getElementById('footerSection');
+    const input = document.getElementById('thought-input');
+    
+    success.style.transition = 'none'; 
+    success.classList.remove('show');
+    
+    input.value = '';
+    input.style.borderColor = "#333333";
+    footer.classList.remove('hide');
+    
+    card.classList.remove('submitted');
+
+    setTimeout(() => {
+        success.style.transition = 'all 0.8s ease 0.2s';
+    }, 100);
+}
+    </script>
 </body>
 </html>
+
 
 
