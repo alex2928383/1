@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EagleVoice | Executive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --unt-green: #00853E;
+            --dark-base: #121212;
+            --surface: #1e1e1e;
+            --border: #333333;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden; 
+        }
+
+        .card {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: 12px 12px 0px var(--unt-green);
+            padding: 40px;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Animation States */
+        .card.submitted {
+            transform: translateY(-30px);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .success-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            text-align: center;
+            opacity: 0;
+            transition: all 0.8s ease 0.2s;
+            width: 100%;
+            max-width: 480px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .success-message.show {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+            pointer-events: auto;
+        }
+
+        .header-section {
+            border-bottom: 2px solid var(--unt-green);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 160px;
+            background: #121212;
+            border: 1px solid var(--border);
+            padding: 15px;
+            color: white;
+            font-size: 1rem;
+            resize: none;
+            outline: none;
+            margin-bottom: 25px;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            border-color: var(--unt-green);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--unt-green);
+            color: white;
+            border: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: #00a04a;
+        }
+
+        .checkmark {
+            font-size: 4rem;
+            color: var(--unt-green);
+            margin-bottom: 15px;
+        }
+
+        .disclaimer {
+            margin-top: 40px;
+            text-align: center;
+            max-width: 450px;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="card" id="mainCard">
+        <div class="header-section">
+            <h1>EagleVoice</h1>
+            <p class="subtitle">Student Advisory Insight Portal</p>
+        </div>
+        
+        <label for="thought-input" class="sr-only">Input your feedback</label>
+        <textarea id="thought-input" placeholder="Enter formal feedback or suggestions for the PSAC..."></textarea>
+        
+        <button class="submit-btn" onclick="handleSubmit()">Transmit Feedback</button>
+    </main>
+
+    <div class="success-message" id="successMsg">
+        <div class="checkmark">✓</div>
+        <h2 style="text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Transmission Complete</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 25px;">Thank you, Alex Martin. Your insight has been securely logged.</p>
+        <button onclick="resetForm()" style="background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; font-weight: 600;">Submit New Entry</button>
+    </div>
+
+    <footer class="disclaimer">
+        <div style="margin-bottom: 8px; font-weight: 700; color: white; letter-spacing: 0.1em;">DEVELOPED BY ALEX MARTIN</div>
+        Independent Student Initiative • Not officially affiliated with UNT • 
+        Developed for the President’s Student Advisory Committee
+    </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+    const supabaseUrl = 'https://vzdfbhlkgilljjwnedcs.supabase.co';
+    const supabaseKey = 'sb_publishable_2mvbzN0u7AYrWlECVKoywQ_nQyQ1vdo';
+    
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function handleSubmit() {
+        const card = document.getElementById('mainCard');
+        const success = document.getElementById('successMsg');
+        const input = document.getElementById('thought-input');
+        const feedback = input.value.trim();
+
+        if (feedback === "") {
+            input.style.borderColor = "red";
+            return;
+        }
+
+        const { data, error } = await supabaseClient
+        .from('Eagle Voice') 
+            .insert([{ context: feedback }]);
+
+        if (error) {
+            console.error('Error:', error.message);
+            alert("Transmission failed: " + error.message);
+            return;
+        }
+
+        card.classList.add('submitted');
+        success.classList.add('show');
+    }
+
+    function resetForm() {
+        const card = document.getElementById('mainCard');
+        const success = document.getElementById('successMsg');
+        const input = document.getElementById('thought-input');
+        
+        input.value = '';
+        input.style.borderColor = "#333333";
+        card.classList.remove('submitted');
+        success.classList.remove('show');
+    }
+</script>
+
+
+</body>
+</html>
+
+
