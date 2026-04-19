@@ -28,20 +28,33 @@
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
         }
+html, body {
+    background-color: var(--dark-base);
+    color: var(--text-primary);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+    overflow-y: auto; 
+}
 
-        body {
-            background-color: var(--dark-base);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-           overflow: hidden;
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+}
 
-        }
-
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 60px 20px;
+}
+    
         .card {
             width: 100%;
             max-width: 480px;
