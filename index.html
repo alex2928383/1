@@ -213,10 +213,11 @@
             transition: opacity 0.4s ease; 
         }
 
-        .disclaimer.hide {
-            opacity: 0;
-            pointer-events: none;
-        }
+.hide {
+    opacity: 0 !important;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
 
         .sr-only {
             position: absolute;
@@ -264,8 +265,7 @@
         <p style="color: var(--text-secondary); margin-bottom: 25px;">Your insight has been securely logged for committee review.</p>
         <button onclick="resetForm()" style="background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; font-weight: 600;">Submit New Entry</button>
     </div>
-
-    <footer id="footerSection" style="text-align: center; margin-top: 40px; padding: 20px; color: #888; font-family: sans-serif; line-height: 1.6;">
+<footer id="footerSection" style="text-align: center; margin-top: 40px; padding: 20px; color: #888; font-family: sans-serif; line-height: 1.6; transition: opacity 0.4s ease;">
     <div style="font-size: 0.7rem; letter-spacing: 1px; margin-bottom: 12px; opacity: 0.8;">
         INDEPENDENT STUDENT INITIATIVE • NOT OFFICIALLY AFFILIATED WITH UNT
     </div>
