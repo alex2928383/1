@@ -298,7 +298,6 @@ body {
 
 <div id="privacyModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color: rgba(0,0,0,0.9); font-family: 'Montserrat', sans-serif;">
   <div style="background-color: #1a1a1a; margin: 10% auto; padding: 30px; border: 1px solid #00853e; width: 80%; max-width: 600px; color: white; border-radius: 8px; line-height: 1.6;">
-    <span onclick="closePrivacy()" style="float:right; cursor:pointer; font-size: 24px;">&times;</span>
     <h2 style="color: #00853e; margin-top: 0;">Privacy & Data Handling</h2>
     <p><strong>Purpose:</strong> EagleVoice is an independent student-led initiative. Data is collected to inform advocacy efforts for the President’s Student Advisory Committee.</p>
     <p><strong>Anonymity:</strong> We do not collect names, emails, or student IDs. Unless you choose to include personal details in your message, your submission is 100% anonymous.</p>
@@ -310,17 +309,14 @@ body {
     </div>
 </footer>
 <script>
-// Function to open the privacy modal
 function openPrivacy() {
   document.getElementById("privacyModal").style.display = "block";
 }
 
-// Function to close the privacy modal
 function closePrivacy() {
   document.getElementById("privacyModal").style.display = "none";
 }
 
-// Close modal if the user clicks anywhere outside of the box
 window.onclick = function(event) {
   var modal = document.getElementById("privacyModal");
   if (event.target == modal) {
