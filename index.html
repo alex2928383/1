@@ -279,7 +279,7 @@ body {
         <p style="color: var(--text-secondary); margin-bottom: 25px;">Your insight has been securely logged for committee review.</p>
         <button onclick="resetForm()" style="background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; font-weight: 600;">Submit New Entry</button>
     </div>
-    <footer id="footerSection" style="text-align: center; margin-top: 50px; padding: 40px 20px; color: #888; font-family: sans-serif; line-height: 1.6; transition: opacity 0.4s ease; width: 100%; box-sizing: border-box;">
+   <footer id="footerSection" style="text-align: center; margin-top: 50px; padding: 40px 20px; color: #888; font-family: 'Inter', sans-serif; line-height: 1.6; transition: opacity 0.4s ease; width: 100%; box-sizing: border-box;">
     <div style="font-size: 0.7rem; letter-spacing: 1px; margin-bottom: 12px; opacity: 0.8;">
         INDEPENDENT STUDENT INITIATIVE • NOT OFFICIALLY AFFILIATED WITH UNIVERSITY OF NORTH TEXAS
     </div>
@@ -293,37 +293,79 @@ body {
         © 2026 ALEX MARTIN. ALL RIGHTS RESERVED. 
         
         <p style="font-size: 10px; color: #888; margin-top: 10px;">
-  <a href="javascript:void(0)" onclick="openPrivacy()" style="color: #888; text-decoration: underline;">Privacy & Data Handling</a>
-</p>
+            <a href="javascript:void(0)" onclick="openPrivacy()" style="color: #888; text-decoration: underline; cursor: pointer;">Legal & Privacy Policy</a>
+        </p>
 
-<div id="privacyModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color: rgba(0,0,0,0.9); font-family: 'Montserrat', sans-serif;">
-  <div style="background-color: #1a1a1a; margin: 10% auto; padding: 30px; border: 1px solid #00853e; width: 80%; max-width: 600px; color: white; border-radius: 8px; line-height: 1.6;">
-    <h2 style="color: #00853e; margin-top: 0;">Privacy & Data Handling</h2>
-    <p><strong>Purpose:</strong> EagleVoice is an independent student-led initiative. Data is collected to inform advocacy efforts for the President’s Student Advisory Committee.</p>
-    <p><strong>Anonymity:</strong> We do not collect names, emails, or student IDs. Unless you choose to include personal details in your message, your submission is 100% anonymous.</p>
-    <p><strong>Tracking:</strong> We do not track IP addresses or use cookies to identify individual users.</p>
-    <p><strong>Sharing:</strong> Data is shared with university administration only in aggregated or anonymized formats. We never sell your information.</p>
-    <button onclick="closePrivacy()" style="background-color: #00853e; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; margin-top: 20px;">Close</button>
-  </div>
-</div>
+        <div id="privacyModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color: rgba(0,0,0,0.95); overflow-y: auto;">
+            <div style="background-color: #1a1a1a; margin: 5% auto; padding: 35px; border: 1px solid #00853e; width: 90%; max-width: 650px; color: white; border-radius: 8px; line-height: 1.7; text-align: left; font-family: 'Inter', sans-serif;">
+                
+                <h2 style="color: #00853e; margin-top: 0; font-size: 1.4rem; border-bottom: 1px solid #333; padding-bottom: 10px;">Legal & Privacy Policy</h2>
+                <p style="font-size: 0.75rem; color: #888; margin-bottom: 20px;">Effective Date: April 2026</p>
+
+                <section style="margin-bottom: 25px;">
+                    <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">1. Data Collection & Anonymity</h3>
+                    <p style="font-size: 0.85rem; color: #aaa;">EagleVoice does not require or collect names, email addresses, Student IDs, or account registrations. When you submit feedback, we collect:</p>
+                    <ul style="font-size: 0.85rem; color: #aaa; padding-left: 20px; margin-top: 8px;">
+                        <li>The text content you provide</li>
+                        <li>Basic technical data (timestamps and system identifiers)</li>
+                        <li>Limited technical info processed by our provider (Supabase) for security</li>
+                    </ul>
+                </section>
+
+                <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+
+                <section style="margin-bottom: 25px;">
+                    <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">2. How Data Is Stored</h3>
+                    <p style="font-size: 0.85rem; color: #aaa;">Submissions are securely stored using <strong>Supabase</strong>. While reasonable safeguards are used, no digital system can guarantee absolute security.</p>
+                </section>
+
+                <section style="margin-bottom: 25px;">
+                    <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">3. Purpose of Data Use</h3>
+                    <p style="font-size: 0.85rem; color: #aaa;">Feedback is used exclusively for student advocacy, including identifying concerns and sharing aggregated insights with university stakeholders like the PSAC. No data is sold for advertising.</p>
+                </section>
+
+                <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+
+                <section style="margin-bottom: 25px;">
+                    <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">4. Anonymity Notice</h3>
+                    <p style="font-size: 0.85rem; color: #aaa;">EagleVoice is designed for anonymity. However, true anonymity cannot be absolutely guaranteed. Avoid including personal details if anonymity is your priority.</p>
+                </section>
+
+                <section style="margin-bottom: 25px; background: #222; padding: 15px; border-left: 4px solid #00853e;">
+                    <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">5. Informal Platform Disclaimer</h3>
+                    <p style="font-size: 0.85rem; color: #aaa;">EagleVoice is an <strong>independent initiative</strong> and not an official UNT reporting system. Submissions do not constitute formal grievances or Title IX reports.</p>
+                </section>
+
+                <section style="margin-bottom: 25px;">
+                    <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">6. User Conduct</h3>
+                    <p style="font-size: 0.85rem; color: #aaa;">Users agree not to submit content that is threatening, harassing, knowingly false, or in violation of university conduct policies.</p>
+                </section>
+
+                <section style="margin-bottom: 25px;">
+                    <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">7. Limitation of Liability</h3>
+                    <p style="font-size: 0.85rem; color: #aaa;">The platform is provided "as is." The developer is not responsible for data loss, service interruptions, or outcomes resulting from the use of this tool.</p>
+                </section>
+
+                <button onclick="closePrivacy()" style="background-color: #00853e; color: white; border: none; padding: 15px; cursor: pointer; border-radius: 4px; width: 100%; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px;">Acknowledge & Close</button>
+            </div>
+        </div>
     </div>
 </footer>
 <script>
-function openPrivacy() {
-  document.getElementById("privacyModal").style.display = "block";
-}
-
-function closePrivacy() {
-  document.getElementById("privacyModal").style.display = "none";
-}
-
-window.onclick = function(event) {
-  var modal = document.getElementById("privacyModal");
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+    function openPrivacy() { 
+        document.getElementById("privacyModal").style.display = "block"; 
+        document.body.style.overflow = "hidden"; 
+    }
+    function closePrivacy() { 
+        document.getElementById("privacyModal").style.display = "none"; 
+        document.body.style.overflow = "auto"; 
+    }
+    window.onclick = function(event) {
+        var modal = document.getElementById("privacyModal");
+        if (event.target == modal) { closePrivacy(); }
+    }
 </script>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
