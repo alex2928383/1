@@ -337,10 +337,13 @@ body {
     </main>
 
    <div class="success-message" id="successMsg">
-   <div class="checkmark-animated">✓</div>
+   <img src="https://eaglevoice.org/favicon-48x48.png?v=2" 
+     alt="EagleVoice Logo" 
+     class="logo-animate" 
+     style="width: 60px; height: 60px; margin-bottom: 20px; object-fit: contain;">
     <h2 style="text-transform: uppercase; letter-spacing: 2px;">Transmission Complete</h2>
     
-    <div class="timeline-box" style="margin: 20px 0; font-size: 0.85rem; border-left: 2px solid var(--unt-green); padding-left: 15px; text-align: left;">
+    <div class="timeline-box" style="margin: 20px auto; font-size: 0.85rem; padding: 5px 0; text-align: center; display: table;">
         <p><strong>What Happens Next?</strong></p>
         <ul style="list-style: none; padding: 0; color: var(--text-secondary);">
             <li>• Human Review: Committee members review all logs bi-weekly.</li>
@@ -478,7 +481,7 @@ body {
     button.style.cursor = "not-allowed";
 
     const { data, error } = await supabaseClient
-        .from('eagle_voice')
+        .from('eagle_voice ')
         .insert([{ context: feedback }]);
 
     if (error) {
