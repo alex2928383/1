@@ -478,7 +478,7 @@ body {
     button.style.cursor = "not-allowed";
 
     const { data, error } = await supabaseClient
-        .from('eagle_voice ')
+        .from('eagle_voice')
         .insert([{ context: feedback }]);
 
     if (error) {
