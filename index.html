@@ -47,26 +47,27 @@ body::-webkit-scrollbar {
     height: 0 !important;
 }
 
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 60px 20px;
+    padding: 40px 15px; 
+    overflow-x: hidden; 
 }
     
-        .card {
-            width: 100%;
-            max-width: 480px;
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            box-shadow: 12px 12px 0px var(--unt-green);
-            padding: 40px;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
-            z-index: 2;
-        }
-
+       .card {
+    width: calc(100% - 24px);
+    max-width: 480px;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: 12px 12px 0px var(--unt-green);
+    padding: 30px; 
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    z-index: 2;
+}
         .mission-overlay {
             display: none;
             position: absolute;
@@ -136,19 +137,21 @@ body {
         }
 
         .success-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -40%);
-            text-align: center;
-            opacity: 0;
-            transition: all 0.8s ease 0.2s;
-            width: 100%;
-            max-width: 480px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 0;
+    transition: all 0.8s ease 0.2s;
+    width: calc(100% - 40px);
+    max-width: 480px;
+    pointer-events: none;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
         .success-message.show {
             opacity: 1;
             transform: translate(-50%, -50%);
@@ -243,6 +246,66 @@ body {
             clip: rect(0, 0, 0, 0);
             border: 0;
         }
+        
+        .secondary-btn {
+    background-color: transparent;
+    color: #888;
+    border: 1px solid #444;
+    padding: 12px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    display: block;
+    margin: 30px auto 0 auto; 
+}
+
+.secondary-btn:hover {
+    color: #fff;
+    border-color: #00853e; 
+    background: rgba(0, 133, 62, 0.1);
+}
+
+.logo-animate {
+    display: inline-block;
+    animation: logo-glow 3s ease-in-out infinite;
+}
+
+@keyframes logo-glow {
+    0%, 100% { filter: drop-shadow(0 0 0px var(--unt-green)); }
+    50% { filter: drop-shadow(0 0 8px rgba(0, 133, 62, 0.6)); }
+}
+
+.checkmark-animated {
+    font-size: 4rem;
+    color: var(--unt-green);
+    margin-bottom: 15px;
+    display: inline-block;
+    opacity: 0; 
+}
+
+.success-message.show .checkmark-animated {
+    animation: check-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 0.3s; 
+}
+
+@keyframes check-pop {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@media (max-width: 480px) {
+    h1 { font-size: 1.2rem; } 
+    .subtitle { font-size: 0.75rem; }
+    .card { padding: 25px 20px; }
+    
+    .timeline-box {
+        font-size: 0.75rem !important;
+        padding-left: 10px !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -263,7 +326,7 @@ body {
         <div class="info-trigger" onclick="toggleMission()">[?] PROJECT INFO</div>
 
         <div class="header-section">
-            <h1>EagleVoice</h1>
+        <h1 class="logo-animate">EagleVoice</h1>
             <p class="subtitle">Student Advisory Insight Portal</p>
         </div>
         
@@ -273,12 +336,27 @@ body {
         <button class="submit-btn" onclick="handleSubmit()">Transmit Feedback</button>
     </main>
 
-    <div class="success-message" id="successMsg">
-        <div class="checkmark">✓</div>
-        <h2 style="text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Transmission Complete</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 25px;">Your insight has been securely logged for committee review.</p>
-        <button onclick="resetForm()" style="background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; font-weight: 600;">Submit New Entry</button>
+   <div class="success-message" id="successMsg">
+   <div class="checkmark-animated">✓</div>
+    <h2 style="text-transform: uppercase; letter-spacing: 2px;">Transmission Complete</h2>
+    
+    <div class="timeline-box" style="margin: 20px 0; font-size: 0.85rem; border-left: 2px solid var(--unt-green); padding-left: 15px; text-align: left;">
+        <p><strong>What Happens Next?</strong></p>
+        <ul style="list-style: none; padding: 0; color: var(--text-secondary);">
+            <li>• Human Review: Committee members review all logs bi-weekly.</li>
+            <li>• Pattern Analysis: Recurring themes are compiled into a briefing.</li>
+            <li>• Direct Action: Insights are presented to the President's Office.</li>
+        </ul>
     </div>
+
+    <p style="font-style: italic; font-size: 0.75rem; color: #666; margin-bottom: 20px;">
+        "A computer can never be held accountable. Therefore a computer must never make a management decision." <br>
+        <span style="font-style: normal; opacity: 0.7;">— IBM Training Manual, 1979</span>
+    </p>
+
+    <button onclick="resetForm()" class="secondary-btn">Submit New Entry</button>
+</div>
+   
    <footer id="footerSection" style="text-align: center; margin-top: 50px; padding: 40px 20px; color: #888; font-family: 'Inter', sans-serif; line-height: 1.6; transition: opacity 0.4s ease; width: 100%; box-sizing: border-box;">
     <div style="font-size: 0.7rem; letter-spacing: 1px; margin-bottom: 12px; opacity: 0.8;">
         INDEPENDENT STUDENT INITIATIVE • NOT OFFICIALLY AFFILIATED WITH UNIVERSITY OF NORTH TEXAS
@@ -379,38 +457,56 @@ body {
             popup.classList.toggle('show');
         }
 
-        async function handleSubmit() {
-            const card = document.getElementById('mainCard');
-            const success = document.getElementById('successMsg');
-            const footer = document.getElementById('footerSection'); // Get footer
-            const input = document.getElementById('thought-input');
-            const feedback = input.value.trim();
+       async function handleSubmit() {
+    const card = document.getElementById('mainCard');
+    const success = document.getElementById('successMsg');
+    const footer = document.getElementById('footerSection');
+    const input = document.getElementById('thought-input');
+    const button = document.querySelector('.submit-btn'); // FIXED
 
-            if (feedback === "") {
-                input.style.borderColor = "red";
-                return;
-            }
+    const feedback = input.value.trim();
 
-            const { data, error } = await supabaseClient
-            .from('Eagle Voice') 
-                .insert([{ context: feedback }]);
+    
+    if (feedback === "") {
+        input.style.borderColor = "red";
+        return;
+    }
 
-            if (error) {
-                console.error('Error:', error.message);
-                alert("Transmission failed: " + error.message);
-                return;
-            }
+    button.innerText = "Transmitting...";
+    button.disabled = true;
+    button.style.opacity = "0.7";
+    button.style.cursor = "not-allowed";
 
-            card.classList.add('submitted');
-            success.classList.add('show');
-            footer.classList.add('hide'); // Hide footer on submit
-        }
+    const { data, error } = await supabaseClient
+        .from('eagle_voice ')
+        .insert([{ context: feedback }]);
+
+    if (error) {
+        console.error('Error:', error.message);
+
+        button.innerText = "Transmit Feedback";
+        button.disabled = false;
+        button.style.opacity = "1";
+        button.style.cursor = "pointer";
+
+        alert("Transmission failed: " + error.message);
+        return;
+    }
+
+    card.classList.add('submitted');
+    success.classList.add('show');
+    footer.classList.add('hide');
+}
+
+       
 
        function resetForm() {
     const card = document.getElementById('mainCard');
     const success = document.getElementById('successMsg');
     const footer = document.getElementById('footerSection');
     const input = document.getElementById('thought-input');
+    const button = document.querySelector('.submit-btn');
+    
     
     success.style.transition = 'none'; 
     success.classList.remove('show');
@@ -420,6 +516,10 @@ body {
     footer.classList.remove('hide');
     
     card.classList.remove('submitted');
+    button.innerText = "Transmit Feedback";
+button.disabled = false;
+button.style.opacity = "1";
+button.style.cursor = "pointer";
 
     setTimeout(() => {
         success.style.transition = 'all 0.8s ease 0.2s';
@@ -428,3 +528,4 @@ body {
     </script>
 </body>
 </html>
+
