@@ -2,27 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>EagleVoice | PSAC Insight Portal</title>
     <meta name="description" content="A platform for student advocacy and data-driven feedback for the President's Student Advisory Committee.">
     <meta name="google-site-verification" content="tFkecYo6n-hnKnQBTguHgk-XUotZ1KEsQ2NT0NorhXc" />
-
     <link rel="icon" href="/favicon.ico?v=3" sizes="48x48">
-    <link rel="apple-touch-icon" href="/android-chrome-512x512.png"> 
-
+    <link rel="apple-touch-icon" href="/android-chrome-512x512.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
+        /* ── TOKENS & RESET ── */
         :root {
             --unt-green: #00853E;
+            --green-dim: rgba(0,133,62,0.15);
             --dark-base: #121212;
             --surface: #1e1e1e;
             --border: #333333;
             --text-primary: #ffffff;
             --text-secondary: #a0a0a0;
+            --red: #e85454;
+            --yellow: #e8b84b;
+            --touch: 44px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
 
         html, body {
             background-color: var(--dark-base);
@@ -30,7 +33,7 @@
             min-height: 100vh;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            overflow-y: auto;
+            -webkit-text-size-adjust: 100%;
         }
         html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !important; height: 0 !important; }
 
@@ -39,24 +42,59 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding: 40px 15px;
+            padding: 40px 15px 60px;
             overflow-x: hidden;
         }
 
+        /* ── NAV TABS ── */
+        .nav-tabs {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            margin-bottom: -1px;
+            position: relative;
+            z-index: 3;
+        }
+        .nav-tab {
+            flex: 1;
+            min-height: var(--touch);
+            padding: 10px 6px;
+            background: var(--dark-base);
+            border: 1px solid var(--border);
+            border-bottom: none;
+            color: var(--text-secondary);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-tab.active { background: var(--surface); color: var(--unt-green); border-color: var(--border); border-bottom: 1px solid var(--surface); }
+        .nav-tab:active { opacity: 0.7; }
+
+        /* ── CARD ── */
         .card {
-            width: calc(100% - 24px);
+            width: 100%;
             max-width: 480px;
             background-color: var(--surface);
             border: 1px solid var(--border);
-            box-shadow: 12px 12px 0px var(--unt-green); /* Restored aesthetic shadow */
+            box-shadow: 12px 12px 0px var(--unt-green);
             padding: 30px;
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             z-index: 2;
         }
-
         .card.submitted { transform: translateY(-30px); opacity: 0; pointer-events: none; }
 
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        /* ── MISSION OVERLAY ── */
         .mission-overlay {
             display: none;
             position: absolute;
@@ -74,18 +112,20 @@
         .mission-overlay.show { display: flex; }
         .mission-content h3 { color: var(--unt-green); letter-spacing: 2px; margin-bottom: 15px; border-bottom: 1px solid var(--border); font-size: 1.1rem; }
         .mission-content p { font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 20px; }
-        .info-trigger { position: absolute; top: 15px; right: 20px; font-size: 0.7rem; color: var(--text-secondary); cursor: pointer; letter-spacing: 1px; font-weight: 600; }
-        .info-trigger:hover { color: var(--unt-green); }
-        .close-btn { background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 8px 15px; cursor: pointer; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .info-trigger { position: absolute; top: 15px; right: 20px; font-size: 0.7rem; color: var(--text-secondary); cursor: pointer; letter-spacing: 1px; font-weight: 600; min-height: var(--touch); display: flex; align-items: center; }
+        .info-trigger:hover, .info-trigger:active { color: var(--unt-green); }
+        .close-btn { background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 12px 20px; cursor: pointer; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; min-height: var(--touch); }
 
+        /* ── HEADER ── */
         .header-section { border-bottom: 2px solid var(--unt-green); padding-bottom: 20px; margin-bottom: 30px; }
         h1 { font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
         .subtitle { font-size: 0.85rem; color: var(--text-secondary); margin-top: 5px; }
 
+        /* ── INPUTS ── */
         textarea {
             width: 100%;
             height: 160px;
-            background: #121212;
+            background: var(--dark-base);
             border: 1px solid var(--border);
             padding: 15px;
             color: white;
@@ -94,36 +134,21 @@
             outline: none;
             margin-bottom: 6px;
             transition: border-color 0.2s;
+            border-radius: 0;
+            -webkit-appearance: none;
         }
         textarea:focus { border-color: var(--unt-green); }
 
-        .char-counter {
-            text-align: right;
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            margin-bottom: 18px;
-            letter-spacing: 0.5px;
-            transition: color 0.2s;
-        }
-        .char-counter.warn { color: #e8b84b; }
-        .char-counter.over { color: #e85454; }
+        .char-counter { text-align: right; font-size: 0.65rem; color: var(--text-secondary); margin-bottom: 18px; letter-spacing: 0.5px; transition: color 0.2s; }
+        .char-counter.warn { color: var(--yellow); }
+        .char-counter.over { color: var(--red); }
 
-        .tags-label {
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .tags-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 25px;
-        }
+        /* ── TAGS ── */
+        .tags-label { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; display: block; }
+        .tags-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
         .tag-chip {
-            padding: 6px 12px;
+            padding: 0 14px;
+            height: var(--touch);
             border: 1px solid var(--border);
             background: transparent;
             color: var(--text-secondary);
@@ -133,12 +158,72 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
         }
         .tag-chip:hover { border-color: var(--unt-green); color: #fff; }
-        .tag-chip.selected { border-color: var(--unt-green); background: rgba(0,133,62,0.15); color: var(--unt-green); }
+        .tag-chip.selected { border-color: var(--unt-green); background: var(--green-dim); color: var(--unt-green); }
 
+        /* ── OPT-IN TOGGLE ── */
+        .opt-in-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding: 14px 16px;
+            background: var(--dark-base);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .opt-in-container:hover { border-color: #555; }
+        .opt-in-text {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            max-width: 80%;
+        }
+        .opt-in-text strong {
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 3px;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 26px;
+            flex-shrink: 0;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #333;
+            transition: .3s;
+            border-radius: 26px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: #888;
+            transition: .3s;
+            border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--unt-green); }
+        input:checked + .slider:before { transform: translateX(20px); background-color: white; }
+
+        /* ── BUTTONS ── */
         .submit-btn {
             width: 100%;
+            min-height: var(--touch);
             padding: 15px;
             background-color: var(--unt-green);
             color: white;
@@ -148,9 +233,32 @@
             letter-spacing: 1px;
             cursor: pointer;
             transition: background 0.2s;
+            font-size: 0.9rem;
+            border-radius: 0;
+            -webkit-appearance: none;
         }
-        .submit-btn:hover { background-color: #00a04a; }
+        .submit-btn:hover, .submit-btn:active { background-color: #00a04a; }
 
+        .secondary-btn {
+            background-color: transparent;
+            color: #888;
+            border: 1px solid #444;
+            padding: 0 24px;
+            min-height: var(--touch);
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto 0;
+            border-radius: 0;
+        }
+        .secondary-btn:hover, .secondary-btn:active { color: #fff; border-color: var(--unt-green); background: var(--green-dim); }
+
+        /* ── SUCCESS MESSAGE ── */
         .success-message {
             position: absolute;
             top: 50%;
@@ -162,56 +270,86 @@
             width: calc(100% - 40px);
             max-width: 480px;
             pointer-events: none;
-            z-index: 1;
+            z-index: 50;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        .success-message.show { opacity: 1; transform: translate(-50%, -50%); pointer-events: auto; }
-        .checkmark-animated { font-size: 4rem; color: var(--unt-green); margin-bottom: 15px; display: inline-block; opacity: 0; }
-        .success-message.show .checkmark-animated { animation: check-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; animation-delay: 0.3s; }
-        @keyframes check-pop { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-
-        .secondary-btn {
-            background-color: transparent;
-            color: #888;
-            border: 1px solid #444;
-            padding: 12px 24px;
-            font-size: 0.75rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: block;
-            margin: 30px auto 0 auto;
-        }
-        .secondary-btn:hover { color: #fff; border-color: #00853e; background: rgba(0,133,62,0.1); }
-
+        .success-message.show { opacity: 1; pointer-events: auto; }
+        
         .logo-animate { display: inline-block; animation: logo-glow 3s ease-in-out infinite; }
-        @keyframes logo-glow {
-            0%,100% { filter: drop-shadow(0 0 0px var(--unt-green)); }
-            50% { filter: drop-shadow(0 0 8px rgba(0,133,62,0.6)); }
-        }
+        @keyframes logo-glow { 0%,100%{filter:drop-shadow(0 0 0px var(--unt-green))} 50%{filter:drop-shadow(0 0 8px rgba(0,133,62,0.6))} }
 
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+        /* ── LIVE FEED PANEL ── */
+        .feed-header { border-bottom: 2px solid var(--unt-green); padding-bottom: 20px; margin-bottom: 30px; }
+        .feed-header h1 { font-size: clamp(1.1rem, 5vw, 1.4rem); }
+        .feed-launch-msg { text-align: center; padding: 40px 10px; }
+        .feed-launch-msg h2 { color: var(--unt-green); font-size: 1.4rem; letter-spacing: 1.5px; margin-bottom: 14px; text-transform: uppercase; }
+        .feed-launch-msg p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; max-width: 300px; margin: 0 auto; }
+
+        /* ── ADMIN PANEL ── */
+        #adminPanel {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.97);
+            z-index: 200;
+            overflow-y: auto;
+            padding: 24px 16px 60px;
+        }
+        #adminPanel.show { display: block; }
+        .admin-card {
+            max-width: 540px;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--unt-green);
+            padding: 24px 20px;
+        }
+        .admin-header { border-bottom: 2px solid var(--unt-green); padding-bottom: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .admin-header h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; color: var(--unt-green); }
+        .admin-close { background: transparent; border: 1px solid #444; color: #888; padding: 6px 12px; cursor: pointer; font-size: 0.7rem; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1px; min-height: var(--touch); }
+        .admin-login { max-width: 320px; margin: 80px auto 0; text-align: center; }
+        .admin-login h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--unt-green); margin-bottom: 20px; }
+        .admin-login input {
+            width: 100%; padding: 14px; background: var(--dark-base); border: 1px solid var(--border); color: white; font-size: 1rem; outline: none; margin-bottom: 12px; text-align: center; letter-spacing: 4px; border-radius: 0; -webkit-appearance: none;
+        }
+        .admin-login input:focus { border-color: var(--unt-green); }
+        .admin-login-btn {
+            width: 100%; min-height: var(--touch); background: var(--unt-green); color: #fff; border: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border-radius: 0;
+        }
+        .admin-err { font-size: 0.72rem; color: var(--red); margin-top: 10px; letter-spacing: 0.5px; }
+        .admin-entry { border: 1px solid var(--border); padding: 14px; margin-bottom: 10px; background: var(--dark-base); }
+        .admin-entry-meta { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+        .admin-badge { font-size: 0.58rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 7px; border: 1px solid #555; color: #999; }
+        .admin-badge.topic { border-color: var(--unt-green); color: var(--unt-green); }
+        .admin-text { font-size: 0.83rem; color: #ccc; line-height: 1.55; margin-bottom: 12px; }
+        .admin-actions { display: flex; gap: 8px; }
+        .admin-btn { flex: 1; min-height: var(--touch); border: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: opacity 0.2s; }
+        .admin-btn.approve { background: var(--unt-green); color: #fff; }
+        .admin-btn.reject  { background: #2a2a2a; color: #888; border: 1px solid #444; }
+        .admin-btn.approved-already { background: #1a2e1a; color: var(--unt-green); border: 1px solid var(--unt-green); cursor: default; }
+
+        /* ── MISC ── */
+        .sr-only { position: absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+        .hide { opacity: 0 !important; pointer-events: none; transition: opacity 0.4s ease; }
 
         footer { text-align: center; margin-top: 50px; padding: 40px 20px; color: #888; line-height: 1.6; transition: opacity 0.4s ease; width: 100%; box-sizing: border-box; }
 
         @media (max-width: 480px) {
             h1 { font-size: 1.2rem; }
             .subtitle { font-size: 0.75rem; }
-            .card { padding: 25px 20px; }
+            .card { padding: 25px 20px; box-shadow: 8px 8px 0px var(--unt-green); }
         }
-    .hide { 
-            opacity: 0 !important; 
-            pointer-events: none; 
-            transition: opacity 0.4s ease; 
-        }    
     </style>
 </head>
 <body>
 
-<main class="card" id="panel-submit">
+<nav class="nav-tabs" role="tablist">
+    <button class="nav-tab active" onclick="showPanel('submit')" id="tab-submit">Transmit</button>
+    <button class="nav-tab"        onclick="showPanel('feed')"   id="tab-feed">Live Feed</button>
+</nav>
+
+<main class="card panel active" id="panel-submit">
 
     <div id="missionPopup" class="mission-overlay">
         <div class="mission-content">
@@ -246,22 +384,45 @@
 
     <div class="char-counter" id="charCounter">0 / 600</div>
 
+    <label class="opt-in-container">
+        <div class="opt-in-text">
+            <strong>Consider for Live Feed</strong>
+            Allow this anonymous submission to be published on the community voting board if approved.
+        </div>
+        <div class="switch">
+            <input type="checkbox" id="liveFeedOptIn" checked>
+            <span class="slider"></span>
+        </div>
+    </label>
+
     <button class="submit-btn" onclick="handleSubmit()">Transmit Feedback</button>
 </main>
+
+<section class="card panel" id="panel-feed">
+    <div class="feed-header">
+        <h1>Live Feed</h1>
+        <p class="subtitle">Upvote submissions to amplify student voices</p>
+    </div>
+
+    <div class="feed-launch-msg">
+        <h2>Launching in August :)</h2>
+        <p>The public review feed is currently being prepared for the upcoming fall semester.</p>
+    </div>
+</section>
 
 <div class="success-message" id="successMsg">
     <img src="https://eaglevoice.org/android-chrome-512x512.png"
          alt="EagleVoice Logo"
          class="logo-animate"
          style="width:85px;height:85px;margin-bottom:25px;object-fit:contain;image-rendering: -webkit-optimize-contrast;">
-    <h2 style="text-transform:uppercase;letter-spacing:2px;">Transmission Complete</h2>
+    <h2 style="text-transform:uppercase;letter-spacing:2px;font-size:clamp(1rem,4vw,1.3rem);">Transmission Complete</h2>
 
     <div style="margin:20px auto;font-size:0.85rem;padding:5px 0;text-align:center;display:table;">
         <p><strong>What Happens Next?</strong></p>
-        <ul style="list-style:none;padding:0;color:var(--text-secondary);margin-top:10px;">
-            <li>• Human Review: Committee members review all logs bi-weekly.</li>
+        <ul style="list-style:none;padding:0;color:var(--text-secondary);margin-top:10px;line-height:1.8;">
+            <li>• Human Review: Committee members review logs bi-weekly.</li>
             <li>• Pattern Analysis: Recurring themes are compiled into a briefing.</li>
-            <li>• Direct Action: Insights are presented to the President's Office.</li>
+            <li>• Direct Action: Insights go to the President's Office.</li>
         </ul>
     </div>
 
@@ -270,6 +431,7 @@
     </p>
 
     <button onclick="resetForm()" class="secondary-btn">Submit New Entry</button>
+    <button onclick="goToFeed()" class="secondary-btn" style="margin-top:10px;color:var(--unt-green);border-color:var(--unt-green);">See Live Feed →</button>
 </div>
 
 <footer id="footerSection" style="position:relative;">
@@ -281,7 +443,7 @@
     </div>
     <hr style="border:0;border-top:1px solid #333;width:30px;margin:0 auto 15px auto;">
     <div style="font-size:0.75rem;color:#aaa;position:relative;">
-        <span style="font-weight:bold;">© 2026 EagleVoice. All rights reserved.</span>
+        <span style="font-weight:bold; cursor:default;">© 2026 EagleVoice.org. All rights reserved.</span>
 
         <div id="copyAlert" style="display:inline-block;position:absolute;bottom:45px;left:50%;transform:translateX(-50%);background:#00853e;color:#fff;font-size:10px;padding:4px 10px;border-radius:3px;font-weight:600;opacity:0;transition:opacity 0.3s ease;pointer-events:none;letter-spacing:0.5px;text-transform:uppercase;">Email Copied!</div>
 
@@ -346,122 +508,277 @@
     </div>
 </footer>
 
+<div id="adminPanel">
+    <div id="adminLogin" class="admin-login">
+        <h2>Admin Access</h2>
+        <input type="password" id="adminPwInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()">
+        <button class="admin-login-btn" onclick="adminLogin()">Enter</button>
+        <div class="admin-err" id="adminErr"></div>
+    </div>
+
+    <div id="adminDash" style="display:none;">
+        <div class="admin-card">
+            <div class="admin-header">
+                <h2>⚡ Review Queue</h2>
+                <button class="admin-close" onclick="closeAdmin()">Close</button>
+            </div>
+            <div id="adminEntries">
+                <div style="text-align:center; padding:30px; color:var(--text-secondary); font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Loading queue...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    const supabaseUrl = 'https://vzdfbhlkgilljjwnedcs.supabase.co';
-    const supabaseKey = 'sb_publishable_2mvbzN0u7AYrWlECVKoywQ_nQyQ1vdo';
-    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-</script>
+// ── SUPABASE CONFIG ──
+const supabaseUrl = 'https://vzdfbhlkgilljjwnedcs.supabase.co';
+const supabaseKey = 'sb_publishable_2mvbzN0u7AYrWlECVKoywQ_nQyQ1vdo';
+const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
-<script>
-    let selectedTag = null;
-    function toggleTag(el) {
-        const chips = document.querySelectorAll('.tag-chip');
-        if (el.classList.contains('selected')) {
-            el.classList.remove('selected');
-            selectedTag = null;
-        } else {
-            chips.forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedTag = el.dataset.tag;
-        }
+// ── UI / TABS ──
+function showPanel(name) {
+    if (document.getElementById('successMsg').classList.contains('show')) {
+        resetForm();
     }
 
-    function updateCharCount(el) {
-        const len = el.value.length;
-        const counter = document.getElementById('charCounter');
-        counter.textContent = len + ' / 600';
-        counter.classList.remove('warn', 'over');
-        if (len > 540) counter.classList.add('over');
-        else if (len > 450) counter.classList.add('warn');
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+}
+
+function goToFeed() {
+    resetForm();
+    showPanel('feed');
+}
+
+// ── TAGS & COUNTER ──
+let selectedTag = null;
+function toggleTag(el) {
+    const chips = document.querySelectorAll('.tag-chip');
+    if (el.classList.contains('selected')) {
+        el.classList.remove('selected'); selectedTag = null;
+    } else {
+        chips.forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected'); selectedTag = el.dataset.tag;
     }
+}
 
-    async function handleSubmit() {
-        const card = document.getElementById('panel-submit');
-        const success = document.getElementById('successMsg');
-        const footer = document.getElementById('footerSection');
-        const input = document.getElementById('thought-input');
-        const button = document.querySelector('.submit-btn');
-        const feedback = input.value.trim();
+function updateCharCount(el) {
+    const len = el.value.length;
+    const counter = document.getElementById('charCounter');
+    counter.textContent = len + ' / 600';
+    counter.classList.remove('warn', 'over');
+    if (len > 540) counter.classList.add('over');
+    else if (len > 450) counter.classList.add('warn');
+}
 
-        if (feedback === '') {
-            input.style.borderColor = 'red';
-            return;
-        }
+function toggleMission() { document.getElementById('missionPopup').classList.toggle('show'); }
 
-        button.innerText = 'Transmitting...';
-        button.disabled = true;
-        button.style.opacity = '0.7';
-        button.style.cursor = 'not-allowed';
+// ── SUBMISSION ──
+async function handleSubmit() {
+    const card = document.getElementById('panel-submit');
+    const success = document.getElementById('successMsg');
+    const footer = document.getElementById('footerSection');
+    const input = document.getElementById('thought-input');
+    const button = document.querySelector('.submit-btn');
+    const navTabs = document.querySelector('.nav-tabs');
+    const optInToggle = document.getElementById('liveFeedOptIn'); 
+    const feedback = input.value.trim();
 
-        const { data, error } = await supabaseClient
-            .from('eagle_voice ')
-            .insert([{ context: feedback, topic: selectedTag }]);
+    if (feedback === '') { input.style.borderColor = 'red'; return; }
 
-        if (error) {
-            console.error('Error:', error.message);
-            button.innerText = 'Transmit Feedback';
-            button.disabled = false;
-            button.style.opacity = '1';
-            button.style.cursor = 'pointer';
-            alert('Transmission failed: ' + error.message);
-            return;
-        }
+    button.innerText = 'Transmitting...';
+    button.disabled = true;
+    button.style.opacity = '0.7';
+    button.style.cursor = 'not-allowed';
 
-        card.classList.add('submitted');
-        success.classList.add('show');
-        footer.classList.add('hide');
-    }
+    // Force strict boolean value evaluation
+    const isOptedIn = Boolean(optInToggle.checked);
+    console.log("Sending to Supabase | allow_live_feed:", isOptedIn);
 
-    function resetForm() {
-        const card = document.getElementById('panel-submit');
-        const success = document.getElementById('successMsg');
-        const footer = document.getElementById('footerSection');
-        const input = document.getElementById('thought-input');
-        const button = document.querySelector('.submit-btn');
+    const { error } = await sb
+        .from('eagle_voice ')
+        .insert([{ 
+            context: feedback, 
+            topic: selectedTag,
+            allow_live_feed: isOptedIn 
+        }]);
 
-        success.style.transition = 'none';
-        success.classList.remove('show');
-        input.value = '';
-        input.style.borderColor = '#333333';
-        document.getElementById('charCounter').textContent = '0 / 600';
-        document.getElementById('charCounter').classList.remove('warn', 'over');
-        document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('selected'));
-        selectedTag = null;
-        footer.classList.remove('hide');
-        card.classList.remove('submitted');
+    if (error) {
+        console.error('Error:', error.message);
         button.innerText = 'Transmit Feedback';
         button.disabled = false;
         button.style.opacity = '1';
         button.style.cursor = 'pointer';
-        setTimeout(() => { success.style.transition = 'all 0.8s ease 0.2s'; }, 100);
+        alert('Transmission failed: ' + error.message);
+        return;
     }
 
-    function toggleMission() {
-        document.getElementById('missionPopup').classList.toggle('show');
+    card.classList.add('submitted');
+    success.classList.add('show');
+    footer.classList.add('hide');
+    navTabs.classList.add('hide');
+}
+
+function resetForm() {
+    const card = document.getElementById('panel-submit');
+    const success = document.getElementById('successMsg');
+    const footer = document.getElementById('footerSection');
+    const input = document.getElementById('thought-input');
+    const button = document.querySelector('.submit-btn');
+    const navTabs = document.querySelector('.nav-tabs');
+    const optInToggle = document.getElementById('liveFeedOptIn');
+
+    success.style.transition = 'none';
+    success.classList.remove('show');
+    input.value = '';
+    input.style.borderColor = '#333333';
+    document.getElementById('charCounter').textContent = '0 / 600';
+    document.getElementById('charCounter').classList.remove('warn', 'over');
+    document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('selected'));
+    selectedTag = null;
+    
+    // Reset toggle to default checked state
+    optInToggle.checked = true;
+    
+    footer.classList.remove('hide');
+    navTabs.classList.remove('hide');
+    
+    card.classList.remove('submitted');
+    button.innerText = 'Transmit Feedback';
+    button.disabled = false;
+    button.style.opacity = '1';
+    button.style.cursor = 'pointer';
+    setTimeout(() => { success.style.transition = 'all 0.8s ease 0.2s'; }, 100);
+}
+
+// ── MODALS & FOOTER ──
+function copyEmailToClipboard() {
+    navigator.clipboard.writeText('eaglevoice.info@gmail.com').then(() => {
+        const a = document.getElementById('copyAlert');
+        a.style.opacity = '1';
+        setTimeout(() => { a.style.opacity = '0'; }, 2000);
+    }).catch(err => console.error('Failed to copy text: ', err));
+}
+
+function openPrivacy() { 
+    document.getElementById('privacyModal').style.display = 'block'; 
+    document.body.style.overflow = "hidden"; 
+}
+function closePrivacy() { 
+    document.getElementById('privacyModal').style.display = 'none'; 
+    document.body.style.overflow = "auto"; 
+}
+window.onclick = function(e) { if (e.target === document.getElementById('privacyModal')) closePrivacy(); };
+
+// ── ADMIN ──
+const ADMIN_PW = 'eaglepsac2026';
+
+function openAdmin() {
+    document.getElementById('adminPanel').classList.add('show');
+    document.getElementById('adminLogin').style.display = 'block';
+    document.getElementById('adminDash').style.display  = 'none';
+    document.getElementById('adminPwInput').value = '';
+    document.getElementById('adminErr').textContent = '';
+    document.body.style.overflow = "hidden"; 
+}
+
+function closeAdmin() {
+    document.getElementById('adminPanel').classList.remove('show');
+    document.body.style.overflow = "auto"; 
+}
+
+function adminLogin() {
+    const pw = document.getElementById('adminPwInput').value;
+    if (pw === ADMIN_PW) {
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminDash').style.display  = 'block';
+        loadAdminQueue();
+    } else {
+        document.getElementById('adminErr').textContent = 'Incorrect password.';
+    }
+}
+
+async function loadAdminQueue() {
+    const container = document.getElementById('adminEntries');
+    
+    const { data, error } = await sb
+        .from('eagle_voice ')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        container.innerHTML = '<div style="text-align:center; padding:20px; color:#a0a0a0; font-size:0.8rem;">Error loading queue.</div>';
+        return;
     }
 
-    function copyEmailToClipboard() {
-        navigator.clipboard.writeText('eaglevoice.info@gmail.com').then(() => {
-            const a = document.getElementById('copyAlert');
-            a.style.opacity = '1';
-            setTimeout(() => { a.style.opacity = '0'; }, 2000);
-        }).catch(err => {
-            console.error('Failed to copy text: ', err);
+    if (!data || data.length === 0) {
+        container.innerHTML = '<div style="text-align:center; padding:20px; color:#a0a0a0; font-size:0.8rem;">Queue is empty. 🎉</div>';
+        return;
+    }
+
+    container.innerHTML = data.map(entry => {
+        // Bulletproof check for false (catches boolean and text format)
+        const isPrivateOnly = (entry.allow_live_feed === false || entry.allow_live_feed === 'false');
+        
+        return `
+            <div class="admin-entry" id="admin-entry-${entry.id}">
+                <div class="admin-entry-meta">
+                    ${entry.topic ? `<span class="admin-badge topic">${entry.topic}</span>` : ''}
+                    <span class="admin-badge">${new Date(entry.created_at).toLocaleDateString()}</span>
+                    ${isPrivateOnly ? `<span class="admin-badge" style="border-color:var(--yellow); color:var(--yellow);">PRIVATE ONLY</span>` : ''}
+                </div>
+                <p class="admin-text">${entry.context.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</p>
+                <div class="admin-actions">
+                    ${!isPrivateOnly ? `<button class="admin-btn approve" onclick="approveEntry('${entry.id}', '${entry.context.replace(/'/g, "\\'")}', '${entry.topic || ''}')">✓ Approve</button>` : ''}
+                    <button class="admin-btn reject" onclick="dismissEntry('${entry.id}')">✕ Dismiss</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+async function approveEntry(id, context, topic) {
+    const btn = document.querySelector(`#admin-entry-${id} .approve`);
+    btn.textContent = 'Approving...';
+    btn.disabled = true;
+
+    const { error } = await sb
+        .from('eagle_voice_approved')
+        .insert([{ context, topic: topic || null, upvotes: 0, downvotes: 0 }]);
+
+    if (error) {
+        btn.textContent = '✓ Approve';
+        btn.disabled = false;
+        alert('Error: ' + error.message);
+        return;
+    }
+
+    const el = document.getElementById('admin-entry-' + id);
+    el.querySelector('.admin-actions').innerHTML = '<button class="admin-btn approved-already" disabled>✓ Published to Feed</button>';
+}
+
+function dismissEntry(id) {
+    const el = document.getElementById('admin-entry-' + id);
+    el.style.opacity = '0.3';
+    el.style.pointerEvents = 'none';
+}
+
+// ── SECRET ADMIN TRIGGER ──
+let tapCount = 0, tapTimer;
+document.addEventListener('DOMContentLoaded', () => {
+    const copy = document.querySelector('footer span[style*="font-weight:bold"]');
+    if (copy) {
+        copy.addEventListener('click', () => {
+            tapCount++;
+            clearTimeout(tapTimer);
+            tapTimer = setTimeout(() => { tapCount = 0; }, 2000);
+            if (tapCount >= 5) { tapCount = 0; openAdmin(); }
         });
     }
-    
-    function openPrivacy() { 
-        document.getElementById('privacyModal').style.display = 'block'; 
-        document.body.style.overflow = "hidden"; /* Restored Scroll Lock */
-    }
-    function closePrivacy() { 
-        document.getElementById('privacyModal').style.display = 'none'; 
-        document.body.style.overflow = "auto"; /* Restored Scroll Release */
-    }
-    window.onclick = function(e) { 
-        if (e.target === document.getElementById('privacyModal')) closePrivacy(); 
-    };
+});
 </script>
 </body>
 </html>
