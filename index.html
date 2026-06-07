@@ -508,30 +508,12 @@
     </div>
 </footer>
 
-<div id="adminPanel">
-    <div id="adminLogin" class="admin-login">
-        <h2>Admin Access</h2>
-        <input type="password" id="adminPwInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()">
-        <button class="admin-login-btn" onclick="adminLogin()">Enter</button>
-        <div class="admin-err" id="adminErr"></div>
-    </div>
 
-    <div id="adminDash" style="display:none;">
-        <div class="admin-card">
-            <div class="admin-header">
-                <h2>⚡ Review Queue</h2>
-                <button class="admin-close" onclick="closeAdmin()">Close</button>
-            </div>
-            <div id="adminEntries">
-                <div style="text-align:center; padding:30px; color:var(--text-secondary); font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;">Loading queue...</div>
-            </div>
-        </div>
-    </div>
-</div>
+
+  
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ── SUPABASE CONFIG ──
 const supabaseUrl = 'https://vzdfbhlkgilljjwnedcs.supabase.co';
 const supabaseKey = 'sb_publishable_2mvbzN0u7AYrWlECVKoywQ_nQyQ1vdo';
 const sb = supabase.createClient(supabaseUrl, supabaseKey);
