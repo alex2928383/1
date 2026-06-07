@@ -83,7 +83,7 @@
             max-width: 480px;
             background-color: var(--surface);
             border: 1px solid var(--border);
-            box-shadow: 12px 12px 0px var(--unt-green);
+            box-shadow: none;
             padding: 30px;
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
@@ -104,7 +104,7 @@
             z-index: 10;
             padding: 30px;
             box-sizing: border-box;
-            border: 1px solid var(--unt-green);
+            border: 1px solid var(--border);
             flex-direction: column;
             justify-content: center;
             text-align: left;
@@ -117,7 +117,7 @@
         .close-btn { background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 12px 20px; cursor: pointer; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; min-height: var(--touch); }
 
         /* ── HEADER ── */
-        .header-section { border-bottom: 2px solid var(--unt-green); padding-bottom: 20px; margin-bottom: 30px; }
+        .header-section { border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; }
         h1 { font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
         .subtitle { font-size: 0.85rem; color: var(--text-secondary); margin-top: 5px; }
 
@@ -281,7 +281,7 @@
         @keyframes logo-glow { 0%,100%{filter:drop-shadow(0 0 0px var(--unt-green))} 50%{filter:drop-shadow(0 0 8px rgba(0,133,62,0.6))} }
 
         /* ── LIVE FEED PANEL ── */
-        .feed-header { border-bottom: 2px solid var(--unt-green); padding-bottom: 20px; margin-bottom: 30px; }
+        .feed-header { border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; }
         .feed-header h1 { font-size: clamp(1.1rem, 5vw, 1.4rem); }
         .feed-launch-msg { text-align: center; padding: 40px 10px; }
         .feed-launch-msg h2 { color: var(--unt-green); font-size: 1.4rem; letter-spacing: 1.5px; margin-bottom: 14px; text-transform: uppercase; }
@@ -302,10 +302,10 @@
             max-width: 540px;
             margin: 0 auto;
             background: var(--surface);
-            border: 1px solid var(--unt-green);
+            border: 1px solid var(--border);
             padding: 24px 20px;
         }
-        .admin-header { border-bottom: 2px solid var(--unt-green); padding-bottom: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .admin-header { border-bottom: 2px solid var(--border); padding-bottom: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
         .admin-header h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; color: var(--unt-green); }
         .admin-close { background: transparent; border: 1px solid #444; color: #888; padding: 6px 12px; cursor: pointer; font-size: 0.7rem; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1px; min-height: var(--touch); }
         .admin-login { max-width: 320px; margin: 80px auto 0; text-align: center; }
@@ -338,7 +338,7 @@
         @media (max-width: 480px) {
             h1 { font-size: 1.2rem; }
             .subtitle { font-size: 0.75rem; }
-            .card { padding: 25px 20px; box-shadow: 8px 8px 0px var(--unt-green); }
+            .card { padding: 25px 20px; box-shadow: none; }
         }
     </style>
 </head>
@@ -455,7 +455,7 @@
     </div>
 
     <div id="privacyModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,0.95);overflow-y:auto;">
-        <div style="background-color:#1a1a1a;margin:5% auto;padding:35px;border:1px solid #00853e;width:90%;max-width:650px;color:white;border-radius:8px;line-height:1.7;text-align:left;">
+        <div style="background-color:#1a1a1a;margin:5% auto;padding:35px;border:1px solid #333;width:90%;max-width:650px;color:white;border-radius:8px;line-height:1.7;text-align:left;">
             <h2 style="color:#00853e;margin-top:0;font-size:1.4rem;border-bottom:1px solid #333;padding-bottom:10px;">Legal & Privacy Policy</h2>
             <p style="font-size:0.75rem;color:#888;margin-bottom:20px;">Effective Date: April 2026</p>
             
@@ -536,7 +536,6 @@ const supabaseUrl = 'https://vzdfbhlkgilljjwnedcs.supabase.co';
 const supabaseKey = 'sb_publishable_2mvbzN0u7AYrWlECVKoywQ_nQyQ1vdo';
 const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
-// ── UI / TABS ──
 function showPanel(name) {
     if (document.getElementById('successMsg').classList.contains('show')) {
         resetForm();
@@ -553,7 +552,6 @@ function goToFeed() {
     showPanel('feed');
 }
 
-// ── TAGS & COUNTER ──
 let selectedTag = null;
 function toggleTag(el) {
     const chips = document.querySelectorAll('.tag-chip');
@@ -576,7 +574,6 @@ function updateCharCount(el) {
 
 function toggleMission() { document.getElementById('missionPopup').classList.toggle('show'); }
 
-// ── SUBMISSION ──
 async function handleSubmit() {
     const card = document.getElementById('panel-submit');
     const success = document.getElementById('successMsg');
@@ -594,7 +591,6 @@ async function handleSubmit() {
     button.style.opacity = '0.7';
     button.style.cursor = 'not-allowed';
 
-    // Force strict boolean value evaluation
     const isOptedIn = Boolean(optInToggle.checked);
     console.log("Sending to Supabase | allow_live_feed:", isOptedIn);
 
@@ -654,7 +650,6 @@ function resetForm() {
     setTimeout(() => { success.style.transition = 'all 0.8s ease 0.2s'; }, 100);
 }
 
-// ── MODALS & FOOTER ──
 function copyEmailToClipboard() {
     navigator.clipboard.writeText('eaglevoice.info@gmail.com').then(() => {
         const a = document.getElementById('copyAlert');
