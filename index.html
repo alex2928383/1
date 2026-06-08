@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* ── TOKENS & RESET ── */
         :root {
             --unt-green: #00853E;
             --green-dim: rgba(0,133,62,0.15);
@@ -46,7 +45,6 @@
             overflow-x: hidden;
         }
 
-        /* ── NAV TABS ── */
         .nav-tabs {
             width: 100%;
             max-width: 480px;
@@ -94,7 +92,6 @@
         .panel { display: none; }
         .panel.active { display: block; }
 
-        /* ── MISSION OVERLAY ── */
         .mission-overlay {
             display: none;
             position: absolute;
@@ -121,7 +118,6 @@
         h1 { font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
         .subtitle { font-size: 0.85rem; color: var(--text-secondary); margin-top: 5px; }
 
-        /* ── INPUTS ── */
         textarea {
             width: 100%;
             height: 160px;
@@ -143,7 +139,6 @@
         .char-counter.warn { color: var(--yellow); }
         .char-counter.over { color: var(--red); }
 
-        /* ── TAGS ── */
         .tags-label { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; display: block; }
         .tags-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
         .tag-chip {
@@ -220,7 +215,6 @@
         input:checked + .slider { background-color: var(--unt-green); }
         input:checked + .slider:before { transform: translateX(20px); background-color: white; }
 
-        /* ── BUTTONS ── */
         .submit-btn {
             width: 100%;
             min-height: var(--touch);
@@ -258,7 +252,6 @@
         }
         .secondary-btn:hover, .secondary-btn:active { color: #fff; border-color: var(--unt-green); background: var(--green-dim); }
 
-        /* ── SUCCESS MESSAGE ── */
         .success-message {
             position: absolute;
             top: 50%;
@@ -280,14 +273,12 @@
         .logo-animate { display: inline-block; animation: logo-glow 3s ease-in-out infinite; }
         @keyframes logo-glow { 0%,100%{filter:drop-shadow(0 0 0px var(--unt-green))} 50%{filter:drop-shadow(0 0 8px rgba(0,133,62,0.6))} }
 
-        /* ── LIVE FEED PANEL ── */
         .feed-header { border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; }
         .feed-header h1 { font-size: clamp(1.1rem, 5vw, 1.4rem); }
         .feed-launch-msg { text-align: center; padding: 40px 10px; }
         .feed-launch-msg h2 { color: var(--unt-green); font-size: 1.4rem; letter-spacing: 1.5px; margin-bottom: 14px; text-transform: uppercase; }
         .feed-launch-msg p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; max-width: 300px; margin: 0 auto; }
 
-        /* ── ADMIN PANEL ── */
         #adminPanel {
             display: none;
             position: fixed;
@@ -329,7 +320,6 @@
         .admin-btn.reject  { background: #2a2a2a; color: #888; border: 1px solid #444; }
         .admin-btn.approved-already { background: #1a2e1a; color: var(--unt-green); border: 1px solid var(--unt-green); cursor: default; }
 
-        /* ── MISC ── */
         .sr-only { position: absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
         .hide { opacity: 0 !important; pointer-events: none; transition: opacity 0.4s ease; }
 
@@ -650,7 +640,6 @@ function closePrivacy() {
 }
 window.onclick = function(e) { if (e.target === document.getElementById('privacyModal')) closePrivacy(); };
 
-// ── ADMIN ──
 const ADMIN_PW = 'eaglepsac2026';
 
 function openAdmin() {
@@ -743,7 +732,6 @@ function dismissEntry(id) {
     el.style.pointerEvents = 'none';
 }
 
-// ── SECRET ADMIN TRIGGER ──
 let tapCount = 0, tapTimer;
 document.addEventListener('DOMContentLoaded', () => {
     const copy = document.querySelector('footer span[style*="font-weight:bold"]');
