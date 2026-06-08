@@ -650,50 +650,56 @@
     </div>
 
     <!-- Privacy Modal -->
-    <div id="privacyModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,0.95);overflow-y:auto;">
-        <div style="background-color:#1a1a1a;margin:5% auto;padding:35px;border:1px solid #333;width:90%;max-width:650px;color:white;border-radius:8px;line-height:1.7;text-align:left;">
-            <h2 style="color:#00853e;margin-top:0;font-size:1.4rem;border-bottom:1px solid #333;padding-bottom:10px;">Legal & Privacy Policy</h2>
-            <p style="font-size:0.75rem;color:#888;margin-bottom:20px;">Effective Date: April 2026</p>
-            <section style="margin-bottom:25px;">
-                <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">1. Data Collection & Anonymity</h3>
-                <p style="font-size:0.85rem;color:#aaa;">EagleVoice does not require or collect names, email addresses, Student IDs, or account registrations. When you submit feedback, we collect:</p>
-                <ul style="font-size: 0.85rem; color: #aaa; padding-left: 20px; margin-top: 8px;">
-                    <li>The text content you provide</li>
-                    <li>Basic technical data (timestamps and system identifiers)</li>
-                    <li>Limited technical info processed by our provider (Supabase) for security</li>
-                </ul>
-            </section>
-            <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
-            <section style="margin-bottom: 25px;">
-                <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">2. How Data Is Stored</h3>
-                <p style="font-size: 0.85rem; color: #aaa;">Submissions are securely stored using <strong>Supabase</strong>. While reasonable safeguards are used, no digital system can guarantee absolute security.</p>
-            </section>
-            <section style="margin-bottom: 25px;">
-                <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">3. Purpose of Data Use</h3>
-                <p style="font-size: 0.85rem; color: #aaa;">Feedback is used exclusively for student advocacy, including identifying concerns and sharing aggregated insights with university stakeholders like the PSAC. No data is sold for advertising.</p>
-            </section>
-            <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
-            <section style="margin-bottom: 25px;">
-                <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">4. Anonymity Notice</h3>
-                <p style="font-size: 0.85rem; color: #aaa;">EagleVoice is designed for anonymity. However, true anonymity cannot be absolutely guaranteed. Avoid including personal details if anonymity is your priority.</p>
-            </section>
-            <section style="margin-bottom:25px;background:#222;padding:15px;border-left:4px solid #00853e;">
-                <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">5. Informal Platform Disclaimer</h3>
-                <p style="font-size:0.85rem;color:#aaa;">EagleVoice is an <strong>independent initiative</strong> and not an official UNT reporting system. Submissions do not constitute formal grievances or Title IX reports.</p>
-            </section>
-            <section style="margin-bottom: 25px;">
-                <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">6. User Conduct</h3>
-                <p style="font-size: 0.85rem; color: #aaa;">Users agree not to submit content that is threatening, harassing, knowingly false, or in violation of university conduct policies.</p>
-            </section>
-            <section style="margin-bottom: 25px;">
-                <h3 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">7. Limitation of Liability</h3>
-                <p style="font-size: 0.85rem; color: #aaa;">The platform is provided "as is." The developer is not responsible for data loss, service interruptions, or outcomes resulting from the use of this tool.</p>
-            </section>
-            <button onclick="closePrivacy()" style="background-color:#00853e;color:white;border:none;padding:15px;cursor:pointer;border-radius:4px;width:100%;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-top:10px;">Acknowledge & Close</button>
-        </div>
+<div id="privacyModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,0.95);overflow-y:auto;">
+    <div style="background-color:#1a1a1a;margin:5% auto;padding:35px;border:1px solid #333;width:90%;max-width:650px;color:white;border-radius:8px;line-height:1.7;text-align:left;">
+        <h2 style="color:#00853e;margin-top:0;font-size:1.4rem;border-bottom:1px solid #333;padding-bottom:10px;">Legal & Privacy Policy</h2>
+        <p style="font-size:0.75rem;color:#888;margin-bottom:20px;">Effective Date: April 2026</p>
+        <section style="margin-bottom:25px;">
+            <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">1. Data Collection & Anonymity</h3>
+            <p style="font-size:0.85rem;color:#aaa;">EagleVoice does not require or collect names, email addresses, Student IDs, or account registrations. When you submit feedback, we collect:</p>
+            <ul style="font-size:0.85rem;color:#aaa;padding-left:20px;margin-top:8px;">
+                <li>The text content you provide</li>
+                <li>Basic technical data (timestamps and system identifiers)</li>
+                <li>Limited technical info processed by our provider (Supabase) for security</li>
+            </ul>
+        </section>
+        <hr style="border:0;border-top:1px solid #333;margin:20px 0;">
+        <section style="margin-bottom:25px;">
+            <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">2. How Data Is Stored</h3>
+            <p style="font-size:0.85rem;color:#aaa;">Submissions are securely stored using <strong>Supabase</strong>. While reasonable safeguards are used, no digital system can guarantee absolute security.</p>
+        </section>
+        <section style="margin-bottom:25px;">
+            <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">3. Purpose of Data Use</h3>
+            <p style="font-size:0.85rem;color:#aaa;">Feedback is used exclusively for student advocacy, including identifying concerns and sharing aggregated insights with university stakeholders like the PSAC. No data is sold for advertising.</p>
+        </section>
+        <hr style="border:0;border-top:1px solid #333;margin:20px 0;">
+        <section style="margin-bottom:25px;">
+            <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">4. Website Analytics</h3>
+            <p style="font-size:0.85rem;color:#aaa;">To better understand how the community uses EagleVoice and to improve the platform, we use <a href="https://analytics.google.com/" target="_blank" rel="noopener" style="color:#00853e;">Google Analytics</a>. This service collects non-personally identifiable information such as page views, session duration, and general device information.</p>
+            <p style="font-size:0.85rem;color:#aaa;margin-top:10px;">We do not intentionally collect personally identifiable information such as your name, Student ID, or email address through these tools. Google Analytics may process certain technical identifiers such as anonymized IP addresses per their own <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:#00853e;">privacy policy</a>. IP anonymization is enabled on this platform.</p>
+            <div style="background:#222;padding:15px;border-left:4px solid #e8b84b;margin-top:14px;">
+                <p style="font-size:0.85rem;color:#aaa;margin:0;">You may opt out of Google Analytics tracking at any time by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" style="color:#00853e;">Google Analytics Opt-out Browser Add-on</a>.</p>
+            </div>
+        </section>
+        <section style="margin-bottom:25px;">
+            <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">5. Anonymity Notice</h3>
+            <p style="font-size:0.85rem;color:#aaa;">EagleVoice is designed for anonymity. However, true anonymity cannot be absolutely guaranteed. Avoid including personal details if anonymity is your priority.</p>
+        </section>
+        <section style="margin-bottom:25px;background:#222;padding:15px;border-left:4px solid #00853e;">
+            <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">6. Informal Platform Disclaimer</h3>
+            <p style="font-size:0.85rem;color:#aaa;">EagleVoice is an <strong>independent initiative</strong> and not an official UNT reporting system. Submissions do not constitute formal grievances or Title IX reports.</p>
+        </section>
+        <section style="margin-bottom:25px;">
+            <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">7. User Conduct</h3>
+            <p style="font-size:0.85rem;color:#aaa;">Users agree not to submit content that is threatening, harassing, knowingly false, or in violation of university conduct policies.</p>
+        </section>
+        <section style="margin-bottom:25px;">
+            <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">8. Limitation of Liability</h3>
+            <p style="font-size:0.85rem;color:#aaa;">The platform is provided "as is." The developer is not responsible for data loss, service interruptions, or outcomes resulting from the use of this tool.</p>
+        </section>
+        <button onclick="closePrivacy()" style="background-color:#00853e;color:white;border:none;padding:15px;cursor:pointer;border-radius:4px;width:100%;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-top:10px;">Acknowledge & Close</button>
     </div>
-</footer>
-
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -1130,4 +1136,3 @@ async function removeFromFeed(id) {
 </script>
 </body>
 </html>
-
