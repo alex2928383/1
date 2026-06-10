@@ -84,7 +84,7 @@
         }
         .nav-tab.active { background: var(--surface); color: var(--unt-green); border-color: var(--border); border-bottom: 1px solid var(--surface); }
         .nav-tab:active { opacity: 0.7; }
-/* ── SOCIAL ── */
+       
         .social-links {
             margin-top: 5px;
             margin-bottom: 20px;
@@ -105,7 +105,7 @@
             color: var(--unt-green); /* Snaps to your accent color */
             transform: translateY(-2px);
         }
-        /* ── CARD ── */
+       
         .card {
             width: 100%;
             max-width: 480px;
@@ -143,7 +143,6 @@
         .info-trigger:hover, .info-trigger:active { color: var(--unt-green); }
         .close-btn { background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 12px 20px; cursor: pointer; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; min-height: var(--touch); }
 
-        /* ── HEADER ── */
         .header-section { border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; }
         h1 { font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
         .subtitle { font-size: 0.85rem; color: var(--text-secondary); margin-top: 5px; }
@@ -303,12 +302,10 @@
         .logo-animate { display: inline-block; animation: logo-glow 3s ease-in-out infinite; }
         @keyframes logo-glow { 0%,100%{filter:drop-shadow(0 0 0px var(--unt-green))} 50%{filter:drop-shadow(0 0 8px rgba(0,133,62,0.6))} }
 
-        /* ── LIVE FEED ── */
         .feed-header { border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; }
         .feed-header h1 { font-size: clamp(1.1rem, 5vw, 1.4rem); }
         .feed-count { font-size: 0.65rem; color: var(--unt-green); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
 
-        /* Feed filter chips */
         .feed-filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
         .filter-chip {
             padding: 0 10px;
@@ -326,7 +323,6 @@
         .filter-chip:hover { border-color: var(--unt-green); color: #fff; }
         .filter-chip.active { border-color: var(--unt-green); background: var(--green-dim); color: var(--unt-green); }
 
-        /* Feed sort row */
         .feed-sort { display: flex; gap: 8px; margin-bottom: 20px; align-items: center; }
         .feed-sort-label { font-size: 0.6rem; color: var(--text-secondary); letter-spacing: 1px; text-transform: uppercase; }
         .sort-btn {
@@ -344,7 +340,6 @@
         }
         .sort-btn.active { border-color: var(--unt-green); color: var(--unt-green); }
 
-        /* Feed cards */
         .feed-card {
             border: 1px solid var(--border);
             background: var(--dark-base);
@@ -372,7 +367,6 @@
         .feed-date { font-size: 0.58rem; color: #555; letter-spacing: 0.5px; }
         .feed-text { font-size: 0.83rem; color: #ccc; line-height: 1.6; margin-bottom: 14px; }
 
-        /* Upvote button */
         .upvote-row { display: flex; align-items: center; gap: 10px; }
         .upvote-btn {
             display: flex;
@@ -395,7 +389,6 @@
         .upvote-btn.voted:hover { border-color: var(--unt-green); }
         .upvote-count { font-size: 0.75rem; font-weight: 700; color: var(--unt-green); }
 
-        /* Feed loading / empty */
         .feed-loading, .feed-empty {
             text-align: center;
             padding: 50px 10px;
@@ -419,7 +412,6 @@
         .feed-empty-icon { font-size: 1.8rem; margin-bottom: 12px; opacity: 0.4; }
         .feed-empty h3 { font-size: 0.85rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
 
-        /* Load more */
         .load-more-btn {
             width: 100%;
             min-height: var(--touch);
@@ -436,7 +428,6 @@
         }
         .load-more-btn:hover { border-color: var(--unt-green); color: var(--unt-green); }
 
-        /* ── ADMIN PANEL ── */
         #adminPanel {
             display: none;
             position: fixed;
@@ -468,7 +459,6 @@
         }
         .admin-err { font-size: 0.72rem; color: var(--red); margin-top: 10px; letter-spacing: 0.5px; }
 
-        /* Admin tabs */
         .admin-tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
         .admin-tab {
             padding: 10px 16px;
@@ -487,7 +477,6 @@
         }
         .admin-tab.active { color: var(--unt-green); border-bottom-color: var(--unt-green); }
 
-        /* Admin stats bar */
         .admin-stats { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         .admin-stat {
             flex: 1;
@@ -512,7 +501,6 @@
         .admin-btn.approved-already { background: #1a2e1a; color: var(--unt-green); border: 1px solid var(--unt-green); cursor: default; }
         .admin-btn.rejected-already { background: #2a1a1a; color: var(--red); border: 1px solid var(--red); cursor: default; }
 
-        /* Published feed management */
         .published-entry { border: 1px solid var(--border); padding: 14px; margin-bottom: 10px; background: var(--dark-base); }
         .published-entry-meta { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; justify-content: space-between; }
         .published-upvotes { font-size: 0.72rem; color: var(--unt-green); font-weight: 700; letter-spacing: 0.5px; }
@@ -588,7 +576,6 @@
     <button class="submit-btn" onclick="handleSubmit()">Transmit Feedback</button>
 </main>
 
-<!-- ── LIVE FEED PANEL ── -->
 <section class="card panel" id="panel-feed">
     <div class="feed-header">
         <div>
@@ -598,7 +585,6 @@
         <span class="feed-count" id="feedCount"></span>
     </div>
 
-    <!-- Filter by topic -->
     <div class="feed-filters" id="feedFilters">
         <button class="filter-chip active" onclick="setFilter('all', this)">All</button>
         <button class="filter-chip" onclick="setFilter('Housing', this)">Housing</button>
@@ -610,20 +596,17 @@
         <button class="filter-chip" onclick="setFilter('Campus Life', this)">Campus Life</button>
     </div>
 
-    <!-- Sort -->
     <div class="feed-sort">
         <span class="feed-sort-label">Sort:</span>
         <button class="sort-btn active" onclick="setSort('top', this)">Top</button>
         <button class="sort-btn" onclick="setSort('new', this)">New</button>
     </div>
 
-    <!-- Feed entries rendered here -->
     <div id="feedEntries"></div>
 
     <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()" style="display:none;">Load More</button>
 </section>
 
-<!-- ── SUCCESS MESSAGE ── -->
 <div class="success-message" id="successMsg">
     <img src="https://eaglevoice.org/android-chrome-512x512.png"
          alt="EagleVoice Logo"
@@ -648,7 +631,6 @@
     <button onclick="goToFeed()" class="secondary-btn" style="margin-top:10px;color:var(--unt-green);border-color:var(--unt-green);">See Live Feed →</button>
 </div>
 
-<!-- ── FOOTER ── -->
 <footer id="footerSection" style="position:relative;">
     <div style="font-size:0.7rem;letter-spacing:1px;margin-bottom:12px;opacity:0.8;text-transform:uppercase;">
         Independent Student Initiative • Not Officially Affiliated with University of North Texas
@@ -678,7 +660,6 @@
         </p>
     </div>
 
-    <!-- Privacy Modal -->
 <div id="privacyModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,0.95);overflow-y:auto;">
     <div style="background-color:#1a1a1a;margin:5% auto;padding:35px;border:1px solid #333;width:90%;max-width:650px;color:white;border-radius:8px;line-height:1.7;text-align:left;">
         <h2 style="color:#00853e;margin-top:0;font-size:1.4rem;border-bottom:1px solid #333;padding-bottom:10px;">Legal & Privacy Policy</h2>
