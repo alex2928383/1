@@ -84,7 +84,27 @@
         }
         .nav-tab.active { background: var(--surface); color: var(--unt-green); border-color: var(--border); border-bottom: 1px solid var(--surface); }
         .nav-tab:active { opacity: 0.7; }
-
+/* ── SOCIAL ── */
+        .social-links {
+            margin-top: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            color: #888; /* Matches your inactive footer text */
+            transition: color 0.2s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            color: var(--unt-green); /* Snaps to your accent color */
+            transform: translateY(-2px);
+        }
         /* ── CARD ── */
         .card {
             width: 100%;
@@ -637,6 +657,15 @@
         Developed for the President's Student Advisory Committee
     </div>
     <hr style="border:0;border-top:1px solid #333;width:30px;margin:0 auto 15px auto;">
+    <div class="social-links">
+        <a href="https://www.instagram.com/eaglevoiceorg/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
+    </div>
     <div style="font-size:0.75rem;color:#aaa;position:relative;">
         <span style="font-weight:bold; cursor:default;">© 2026 EagleVoice. All rights reserved.</span>
 
