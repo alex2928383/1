@@ -207,7 +207,6 @@
             align-items: center;
             justify-content: center;
             
-            /* Nuke the scrollbar visually */
             scrollbar-width: none; 
             -ms-overflow-style: none; 
         }
@@ -270,6 +269,7 @@
     <div id="custom-topic-wrapper" style="display: none; margin-bottom: 18px;">
         <span class="tags-label">Specify Topic Keyword</span>
         <input type="text" id="custom-topic-input" placeholder="e.g., Parking, Financial Aid..." 
+               maxlength="40"
                style="width: 100%; padding: 12px; background: var(--dark-base); border: 1px solid var(--border); color: white; font-size: 0.9rem; outline: none; border-radius: 0; transition: border-color 0.2s;">
     </div>
 
@@ -285,34 +285,42 @@
     <img src="https://eaglevoice.org/android-chrome-512x512.png"
          alt="EagleVoice Logo"
          class="logo-animate"
-         style="width:85px;height:85px;margin-bottom:25px;object-fit:contain;image-rendering: -webkit-optimize-contrast;">
-    <h2 style="text-transform:uppercase;letter-spacing:2px;font-size:clamp(1rem,4vw,1.3rem);">Transmission Complete</h2>
+         style="width:85px;height:85px;margin-bottom:20px;object-fit:contain;image-rendering: -webkit-optimize-contrast;">
+    <h2 style="text-transform:uppercase;letter-spacing:2px;font-size:clamp(1.1rem,4vw,1.3rem); margin-bottom: 25px;">Transmission Complete</h2>
 
-    <div id="tx-receipt" style="background: #131313; border: 1px solid #333; padding: 15px; text-align: left; margin: 20px auto; width: 100%; max-width: 300px; font-family: monospace; font-size: 0.75rem; color: #888; line-height: 1.8;">
-        <div style="color: var(--unt-green); font-weight: 700; margin-bottom: 10px; font-size: 0.85rem; border-bottom: 1px solid #333; padding-bottom: 8px; letter-spacing: 1px;">
-            RECEIPT // <span id="receipt-id">TX-000000</span>
+    <div id="tx-receipt" style="background: #181818; border-left: 3px solid var(--unt-green); padding: 16px 20px; text-align: left; width: 100%; max-width: 360px; margin-bottom: 30px;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 12px; margin-bottom: 12px;">
+            <div style="font-family: monospace; color: var(--unt-green); font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;">
+                ID // <span id="receipt-id" style="color: #fff;">TX-000000</span>
+            </div>
+            <button onclick="copyTxId(event)" style="background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 4px 10px; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s;">
+                Copy
+            </button>
         </div>
-        <div>STATUS: <span style="color: #fff; float: right;">LOGGED & SECURED</span></div>
-        <div>TOPIC: <span id="receipt-topic" style="color: #fff; float: right;">UNSPECIFIED</span></div>
-        <div>TIME: <span id="receipt-time" style="color: #fff; float: right;">00:00:00</span></div>
+        
+        <div style="font-family: monospace; font-size: 0.75rem; color: #888; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div>STATUS: <span style="color: #fff;">SECURED</span></div>
+            <div>TIME: <span id="receipt-time" style="color: #fff;">00:00:00</span></div>
+            <div style="grid-column: span 2;">TOPIC: <span id="receipt-topic" style="color: #fff;">UNSPECIFIED</span></div>
+        </div>
     </div>
-    
-    <button onclick="copyTxId(event)" style="background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 8px 16px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-bottom: 20px; font-family: 'Inter', sans-serif;">Copy ID to Clipboard</button>
-    
-    <div style="margin:10px auto 20px;font-size:0.85rem;padding:5px 0;text-align:center;display:table;">
-        <p><strong>What Happens Next?</strong></p>
-        <ul style="list-style:none;padding:0;color:var(--text-secondary);margin-top:10px;line-height:1.8;">
-            <li>• Human Review: Committee members review logs bi-weekly.</li>
-            <li>• Pattern Analysis: Recurring themes are compiled into a briefing.</li>
-            <li>• Direct Action: Insights go to the President's Office.</li>
-        </ul>
+    <div style="width: 100%; max-width: 360px; text-align: left; margin-bottom: 30px;">
+        <div style="font-size: 0.65rem; color: #666; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; padding-left: 2px;">System Routing</div>
+        
+        <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; border-left: 1px solid #333; padding-left: 16px;">
+            <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Committee members review logs bi-weekly.</div>
+            <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Recurring themes compiled into briefing.</div>
+            <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Actionable insights sent to President's Office.</div>
+            <div><span style="color: var(--yellow); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Retain ID above to track status with Admin.</div>
+        </div>
     </div>
 
-    <p style="font-style:italic;font-size:0.75rem;color:#8a8a8a;margin-top:20px;letter-spacing:0.5px;">
+    <button onclick="resetForm()" class="secondary-btn" style="width: 100%; max-width: 360px; margin-top: 0;">Submit Another Entry</button>
+
+    <p style="font-style:italic; font-size: 0.7rem; color: #555; margin-top: 30px; letter-spacing: 0.5px;">
         EagleVoice: Bringing student voices to the table.
     </p>
-
-    <button onclick="resetForm()" class="secondary-btn">Submit New Entry</button>
 </div>
 
 <footer id="footerSection" style="position:relative;">
@@ -460,16 +468,11 @@ async function handleSubmit() {
         finalTopic = `Other: ${customInput.value.trim()}`;
     }
 
-    // Generate a tactical, alphanumeric ID
     const txId = 'TX-' + Math.random().toString(36).substring(2, 8).toUpperCase();
 
-    // Secretly prepend it to the text payload for the backend
-    const finalFeedback = `[${txId}] ${feedback}`;
-
-    // Insert payload without the .select() function to satisfy RLS
     const { error } = await sb
         .from('eagle_voice')
-        .insert([{ context: finalFeedback, topic: finalTopic, allow_live_feed: false }]);
+        .insert([{ tx_id: txId, context: feedback, topic: finalTopic, allow_live_feed: false }]);
 
     if (error) {
         console.error('Error:', error.message);
@@ -481,7 +484,6 @@ async function handleSubmit() {
         return;
     }
 
-    // --- POPULATE THE DATA RECEIPT ---
     const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
     document.getElementById('receipt-id').innerText = txId;
     document.getElementById('receipt-topic').innerText = finalTopic ? finalTopic.toUpperCase() : 'UNSPECIFIED';
@@ -497,11 +499,13 @@ function copyTxId(event) {
     navigator.clipboard.writeText(id).then(() => {
         const btn = event.target;
         const originalText = btn.innerText;
-        btn.innerText = "COPIED!";
+        btn.innerText = "COPIED";
         btn.style.background = "var(--green-dim)";
+        btn.style.color = "#fff";
         setTimeout(() => { 
             btn.innerText = originalText; 
             btn.style.background = "transparent";
+            btn.style.color = "var(--unt-green)";
         }, 1500);
     });
 }
@@ -528,7 +532,6 @@ function resetForm() {
     document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('selected'));
     selectedTag = null;
     
-    // Clear out receipt details for the next transmission
     document.getElementById('receipt-id').innerText = 'TX-000000';
     document.getElementById('receipt-topic').innerText = 'UNSPECIFIED';
     document.getElementById('receipt-time').innerText = '00:00:00';
