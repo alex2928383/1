@@ -1,15 +1,16 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8JB4VE0MSD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8JB4VE0MSD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-8JB4VE0MSD');
-</script>
+      gtag('config', 'G-8JB4VE0MSD');
+    </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -54,36 +55,6 @@
             padding: 40px 15px 60px;
             overflow-x: hidden;
         }
-
-        .nav-tabs {
-            width: 100%;
-            max-width: 480px;
-            display: flex;
-            margin-bottom: -1px;
-            position: relative;
-            z-index: 3;
-        }
-        .nav-tab {
-            flex: 1;
-            min-height: var(--touch);
-            padding: 10px 6px;
-            background: var(--dark-base);
-            border: 1px solid var(--border);
-            border-bottom: none;
-            color: var(--text-secondary);
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .nav-tab.active { background: var(--surface); color: var(--unt-green); border-color: var(--border); border-bottom: 1px solid var(--surface); }
-        .nav-tab:active { opacity: 0.7; }
        
         .social-links {
             margin-top: 5px;
@@ -94,7 +65,7 @@
         }
         
         .social-icon {
-            color: #888; /* Matches your inactive footer text */
+            color: #888;
             transition: color 0.2s ease, transform 0.2s ease;
             display: inline-flex;
             align-items: center;
@@ -102,7 +73,7 @@
         }
         
         .social-icon:hover {
-            color: var(--unt-green); /* Snaps to your accent color */
+            color: var(--unt-green);
             transform: translateY(-2px);
         }
        
@@ -116,11 +87,9 @@
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             z-index: 2;
+            margin-top: 20px;
         }
         .card.submitted { transform: translateY(-30px); opacity: 0; pointer-events: none; }
-
-        .panel { display: none; }
-        .panel.active { display: block; }
 
         .mission-overlay {
             display: none;
@@ -188,62 +157,6 @@
         .tag-chip:hover { border-color: var(--unt-green); color: #fff; }
         .tag-chip.selected { border-color: var(--unt-green); background: var(--green-dim); color: var(--unt-green); }
 
-        /* ── OPT-IN TOGGLE ── */
-        .opt-in-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            padding: 14px 16px;
-            background: var(--dark-base);
-            border: 1px solid var(--border);
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-        .opt-in-container:hover { border-color: #555; }
-        .opt-in-text {
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            max-width: 80%;
-        }
-        .opt-in-text strong {
-            color: var(--text-primary);
-            display: block;
-            margin-bottom: 3px;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 46px;
-            height: 26px;
-            flex-shrink: 0;
-        }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #333;
-            transition: .3s;
-            border-radius: 26px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 4px;
-            bottom: 4px;
-            background-color: #888;
-            transition: .3s;
-            border-radius: 50%;
-        }
-        input:checked + .slider { background-color: var(--unt-green); }
-        input:checked + .slider:before { transform: translateX(20px); background-color: white; }
-
         .submit-btn {
             width: 100%;
             min-height: var(--touch);
@@ -302,211 +215,6 @@
         .logo-animate { display: inline-block; animation: logo-glow 3s ease-in-out infinite; }
         @keyframes logo-glow { 0%,100%{filter:drop-shadow(0 0 0px var(--unt-green))} 50%{filter:drop-shadow(0 0 8px rgba(0,133,62,0.6))} }
 
-        .feed-header { border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; }
-        .feed-header h1 { font-size: clamp(1.1rem, 5vw, 1.4rem); }
-        .feed-count { font-size: 0.65rem; color: var(--unt-green); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
-
-        .feed-filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
-        .filter-chip {
-            padding: 0 10px;
-            height: 30px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 0.62rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .filter-chip:hover { border-color: var(--unt-green); color: #fff; }
-        .filter-chip.active { border-color: var(--unt-green); background: var(--green-dim); color: var(--unt-green); }
-
-        .feed-sort { display: flex; gap: 8px; margin-bottom: 20px; align-items: center; }
-        .feed-sort-label { font-size: 0.6rem; color: var(--text-secondary); letter-spacing: 1px; text-transform: uppercase; }
-        .sort-btn {
-            padding: 0 10px;
-            height: 28px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .sort-btn.active { border-color: var(--unt-green); color: var(--unt-green); }
-
-        .feed-card {
-            border: 1px solid var(--border);
-            background: var(--dark-base);
-            padding: 16px;
-            margin-bottom: 10px;
-            transition: border-color 0.2s;
-            animation: fadeSlideIn 0.3s ease forwards;
-            opacity: 0;
-        }
-        @keyframes fadeSlideIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        .feed-card:hover { border-color: #444; }
-        .feed-card-meta { display: flex; gap: 6px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
-        .feed-topic-badge {
-            font-size: 0.58rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            padding: 3px 7px;
-            border: 1px solid var(--unt-green);
-            color: var(--unt-green);
-        }
-        .feed-date { font-size: 0.58rem; color: #555; letter-spacing: 0.5px; }
-        .feed-text { font-size: 0.83rem; color: #ccc; line-height: 1.6; margin-bottom: 14px; }
-
-        .upvote-row { display: flex; align-items: center; gap: 10px; }
-        .upvote-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 0 12px;
-            height: 32px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: uppercase;
-        }
-        .upvote-btn:hover { border-color: var(--unt-green); color: var(--unt-green); }
-        .upvote-btn.voted { border-color: var(--unt-green); background: var(--green-dim); color: var(--unt-green); cursor: default; }
-        .upvote-btn.voted:hover { border-color: var(--unt-green); }
-        .upvote-count { font-size: 0.75rem; font-weight: 700; color: var(--unt-green); }
-
-        .feed-loading, .feed-empty {
-            text-align: center;
-            padding: 50px 10px;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-        }
-        .feed-loading::after {
-            content: '';
-            display: block;
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--border);
-            border-top-color: var(--unt-green);
-            border-radius: 50%;
-            margin: 16px auto 0;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .feed-empty-icon { font-size: 1.8rem; margin-bottom: 12px; opacity: 0.4; }
-        .feed-empty h3 { font-size: 0.85rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
-
-        .load-more-btn {
-            width: 100%;
-            min-height: var(--touch);
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-top: 10px;
-        }
-        .load-more-btn:hover { border-color: var(--unt-green); color: var(--unt-green); }
-
-        #adminPanel {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.97);
-            z-index: 200;
-            overflow-y: auto;
-            padding: 24px 16px 60px;
-        }
-        #adminPanel.show { display: block; }
-        .admin-card {
-            max-width: 540px;
-            margin: 0 auto;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 24px 20px;
-        }
-        .admin-header { border-bottom: 2px solid var(--border); padding-bottom: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .admin-header h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; color: var(--unt-green); }
-        .admin-close { background: transparent; border: 1px solid #444; color: #888; padding: 6px 12px; cursor: pointer; font-size: 0.7rem; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1px; min-height: var(--touch); }
-        .admin-login { max-width: 320px; margin: 80px auto 0; text-align: center; }
-        .admin-login h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--unt-green); margin-bottom: 20px; }
-        .admin-login input {
-            width: 100%; padding: 14px; background: var(--dark-base); border: 1px solid var(--border); color: white; font-size: 1rem; outline: none; margin-bottom: 12px; text-align: center; letter-spacing: 4px; border-radius: 0; -webkit-appearance: none;
-        }
-        .admin-login input:focus { border-color: var(--unt-green); }
-        .admin-login-btn {
-            width: 100%; min-height: var(--touch); background: var(--unt-green); color: #fff; border: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border-radius: 0;
-        }
-        .admin-err { font-size: 0.72rem; color: var(--red); margin-top: 10px; letter-spacing: 0.5px; }
-
-        .admin-tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
-        .admin-tab {
-            padding: 10px 16px;
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            background: transparent;
-            border-top: none;
-            border-left: none;
-            border-right: none;
-        }
-        .admin-tab.active { color: var(--unt-green); border-bottom-color: var(--unt-green); }
-
-        .admin-stats { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .admin-stat {
-            flex: 1;
-            min-width: 80px;
-            background: var(--dark-base);
-            border: 1px solid var(--border);
-            padding: 10px;
-            text-align: center;
-        }
-        .admin-stat-num { font-size: 1.4rem; font-weight: 700; color: var(--unt-green); }
-        .admin-stat-label { font-size: 0.58rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
-
-        .admin-entry { border: 1px solid var(--border); padding: 14px; margin-bottom: 10px; background: var(--dark-base); }
-        .admin-entry-meta { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
-        .admin-badge { font-size: 0.58rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 7px; border: 1px solid #555; color: #999; }
-        .admin-badge.topic { border-color: var(--unt-green); color: var(--unt-green); }
-        .admin-text { font-size: 0.83rem; color: #ccc; line-height: 1.55; margin-bottom: 12px; }
-        .admin-actions { display: flex; gap: 8px; }
-        .admin-btn { flex: 1; min-height: var(--touch); border: none; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: opacity 0.2s; font-family: 'Inter', sans-serif; }
-        .admin-btn.approve { background: var(--unt-green); color: #fff; }
-        .admin-btn.reject  { background: #2a2a2a; color: #888; border: 1px solid #444; }
-        .admin-btn.approved-already { background: #1a2e1a; color: var(--unt-green); border: 1px solid var(--unt-green); cursor: default; }
-        .admin-btn.rejected-already { background: #2a1a1a; color: var(--red); border: 1px solid var(--red); cursor: default; }
-
-        .published-entry { border: 1px solid var(--border); padding: 14px; margin-bottom: 10px; background: var(--dark-base); }
-        .published-entry-meta { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; justify-content: space-between; }
-        .published-upvotes { font-size: 0.72rem; color: var(--unt-green); font-weight: 700; letter-spacing: 0.5px; }
-        .remove-btn { background: transparent; border: 1px solid #444; color: #888; padding: 4px 10px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
-        .remove-btn:hover { border-color: var(--red); color: var(--red); }
-
         .sr-only { position: absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
         .hide { opacity: 0 !important; pointer-events: none; transition: opacity 0.4s ease; }
 
@@ -521,13 +229,7 @@
 </head>
 <body>
 
-<nav class="nav-tabs" role="tablist">
-    <button class="nav-tab active" onclick="showPanel('submit')" id="tab-submit">Transmit</button>
-    <button class="nav-tab"        onclick="showPanel('feed')"   id="tab-feed">Live Feed</button>
-</nav>
-
-<!-- ── SUBMIT PANEL ── -->
-<main class="card panel active" id="panel-submit">
+<main class="card" id="panel-submit">
 
     <div id="missionPopup" class="mission-overlay">
         <div class="mission-content">
@@ -562,50 +264,8 @@
 
     <div class="char-counter" id="charCounter">0 / 600</div>
 
-    <label class="opt-in-container">
-        <div class="opt-in-text">
-            <strong>Consider for Live Feed</strong>
-            Allow this anonymous submission to be published on the community voting board if approved.
-        </div>
-        <div class="switch">
-            <input type="checkbox" id="liveFeedOptIn" checked>
-            <span class="slider"></span>
-        </div>
-    </label>
-
     <button class="submit-btn" onclick="handleSubmit()">Transmit Feedback</button>
 </main>
-
-<section class="card panel" id="panel-feed">
-    <div class="feed-header">
-        <div>
-            <h1>Live Feed</h1>
-            <p class="subtitle">Upvote submissions to amplify student voices</p>
-        </div>
-        <span class="feed-count" id="feedCount"></span>
-    </div>
-
-    <div class="feed-filters" id="feedFilters">
-        <button class="filter-chip active" onclick="setFilter('all', this)">All</button>
-        <button class="filter-chip" onclick="setFilter('Housing', this)">Housing</button>
-        <button class="filter-chip" onclick="setFilter('Tuition', this)">Tuition</button>
-        <button class="filter-chip" onclick="setFilter('Dining', this)">Dining</button>
-        <button class="filter-chip" onclick="setFilter('Safety', this)">Safety</button>
-        <button class="filter-chip" onclick="setFilter('Academics', this)">Academics</button>
-        <button class="filter-chip" onclick="setFilter('Mental Health', this)">Mental Health</button>
-        <button class="filter-chip" onclick="setFilter('Campus Life', this)">Campus Life</button>
-    </div>
-
-    <div class="feed-sort">
-        <span class="feed-sort-label">Sort:</span>
-        <button class="sort-btn active" onclick="setSort('top', this)">Top</button>
-        <button class="sort-btn" onclick="setSort('new', this)">New</button>
-    </div>
-
-    <div id="feedEntries"></div>
-
-    <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()" style="display:none;">Load More</button>
-</section>
 
 <div class="success-message" id="successMsg">
     <img src="https://eaglevoice.org/android-chrome-512x512.png"
@@ -628,7 +288,6 @@
     </p>
 
     <button onclick="resetForm()" class="secondary-btn">Submit New Entry</button>
-    <button onclick="goToFeed()" class="secondary-btn" style="margin-top:10px;color:var(--unt-green);border-color:var(--unt-green);">See Live Feed →</button>
 </div>
 
 <footer id="footerSection" style="position:relative;">
@@ -659,6 +318,7 @@
             <a href="javascript:void(0)" onclick="openPrivacy()" style="color:#888;text-decoration:underline;cursor:pointer;margin-left:12px;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#888'">Legal & Privacy Policy</a>
         </p>
     </div>
+</footer>
 
 <div id="privacyModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,0.95);overflow-y:auto;">
     <div style="background-color:#1a1a1a;margin:5% auto;padding:35px;border:1px solid #333;width:90%;max-width:650px;color:white;border-radius:8px;line-height:1.7;text-align:left;">
@@ -717,40 +377,18 @@ const supabaseUrl = 'https://vzdfbhlkgilljjwnedcs.supabase.co';
 const supabaseKey = 'sb_publishable_2mvbzN0u7AYrWlECVKoywQ_nQyQ1vdo';
 const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
-
-
-let feedData       = [];
-let feedFilter     = 'all';
-let feedSort       = 'top';
-let feedPage       = 0;
-const PAGE_SIZE    = 10;
-
-function getVoted() {
-    try { return JSON.parse(localStorage.getItem('ev_voted') || '[]'); }
-    catch { return []; }
-}
-function markVoted(id) {
-    const v = getVoted();
-    if (!v.includes(id)) { v.push(id); localStorage.setItem('ev_voted', JSON.stringify(v)); }
-}
-function hasVoted(id) { return getVoted().includes(String(id)); }
-
-function showPanel(name) {
-    if (document.getElementById('successMsg').classList.contains('show')) resetForm();
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-    document.getElementById('panel-' + name).classList.add('active');
-    document.getElementById('tab-' + name).classList.add('active');
-    if (name === 'feed') loadFeed();
-}
-
-function goToFeed() { resetForm(); showPanel('feed'); }
-
 let selectedTag = null;
+
 function toggleTag(el) {
     const chips = document.querySelectorAll('.tag-chip');
-    if (el.classList.contains('selected')) { el.classList.remove('selected'); selectedTag = null; }
-    else { chips.forEach(c => c.classList.remove('selected')); el.classList.add('selected'); selectedTag = el.dataset.tag; }
+    if (el.classList.contains('selected')) { 
+        el.classList.remove('selected'); 
+        selectedTag = null; 
+    } else { 
+        chips.forEach(c => c.classList.remove('selected')); 
+        el.classList.add('selected'); 
+        selectedTag = el.dataset.tag; 
+    }
 }
 
 function updateCharCount(el) {
@@ -762,7 +400,9 @@ function updateCharCount(el) {
     else if (len > 450) counter.classList.add('warn');
 }
 
-function toggleMission() { document.getElementById('missionPopup').classList.toggle('show'); }
+function toggleMission() { 
+    document.getElementById('missionPopup').classList.toggle('show'); 
+}
 
 async function handleSubmit() {
     const card    = document.getElementById('panel-submit');
@@ -770,8 +410,6 @@ async function handleSubmit() {
     const footer  = document.getElementById('footerSection');
     const input   = document.getElementById('thought-input');
     const button  = document.querySelector('.submit-btn');
-    const navTabs = document.querySelector('.nav-tabs');
-    const optIn   = document.getElementById('liveFeedOptIn');
     const feedback = input.value.trim();
 
     if (!feedback) { input.style.borderColor = 'red'; return; }
@@ -781,9 +419,10 @@ async function handleSubmit() {
     button.style.opacity = '0.7';
     button.style.cursor  = 'not-allowed';
 
+    // payload simplified — allow_live_feed field defaults to false now
     const { error } = await sb
         .from('eagle_voice')
-        .insert([{ context: feedback, topic: selectedTag, allow_live_feed: Boolean(optIn.checked) }]);
+        .insert([{ context: feedback, topic: selectedTag, allow_live_feed: false }]);
 
     if (error) {
         console.error('Error:', error.message);
@@ -798,7 +437,6 @@ async function handleSubmit() {
     card.classList.add('submitted');
     success.classList.add('show');
     footer.classList.add('hide');
-    navTabs.classList.add('hide');
 }
 
 function resetForm() {
@@ -807,7 +445,6 @@ function resetForm() {
     const footer  = document.getElementById('footerSection');
     const input   = document.getElementById('thought-input');
     const button  = document.querySelector('.submit-btn');
-    const navTabs = document.querySelector('.nav-tabs');
 
     success.style.transition = 'none';
     success.classList.remove('show');
@@ -817,146 +454,13 @@ function resetForm() {
     document.getElementById('charCounter').classList.remove('warn', 'over');
     document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('selected'));
     selectedTag = null;
-    document.getElementById('liveFeedOptIn').checked = true;
     footer.classList.remove('hide');
-    navTabs.classList.remove('hide');
     card.classList.remove('submitted');
     button.innerText = 'Transmit Feedback';
     button.disabled  = false;
     button.style.opacity = '1';
     button.style.cursor  = 'pointer';
     setTimeout(() => { success.style.transition = 'all 0.8s ease 0.2s'; }, 100);
-}
-
-function setFilter(f, el) {
-    feedFilter = f;
-    feedPage   = 0;
-    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-    renderFeed();
-}
-
-function setSort(s, el) {
-    feedSort = s;
-    feedPage = 0;
-    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-    el.classList.add('active');
-    renderFeed();
-}
-
-async function loadFeed() {
-    const container = document.getElementById('feedEntries');
-    container.innerHTML = '<div class="feed-loading">Loading transmissions</div>';
-    document.getElementById('loadMoreBtn').style.display = 'none';
-
-    const { data, error } = await sb
-        .from('eagle_voice_approved')
-        .select('*');
-
-    if (error || !data) {
-        container.innerHTML = '<div class="feed-empty"><div class="feed-empty-icon"></div><h3>Signal Lost</h3><p style="color:var(--text-secondary);font-size:0.78rem;">Unable to load feed. Try again shortly.</p></div>';
-        return;
-    }
-
-    feedData = data;
-    feedPage = 0;
-    renderFeed();
-    updateFeedCount();
-}
-
-function renderFeed() {
-    const container = document.getElementById('feedEntries');
-
-    let filtered = feedFilter === 'all'
-        ? [...feedData]
-        : feedData.filter(e => e.topic === feedFilter);
-
-    if (feedSort === 'top') {
-        filtered.sort((a, b) => (b.upvotes || 0) - (a.upvotes || 0));
-    } else {
-        filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-    }
-
-    if (filtered.length === 0) {
-        container.innerHTML = `
-            <div class="feed-empty">
-                <div class="feed-empty-icon"></div>
-                <h3>No transmissions yet</h3>
-                <p style="color:var(--text-secondary);font-size:0.78rem;margin-top:8px;">
-                    ${feedFilter !== 'all' ? 'No approved submissions in this category.' : 'Be the first to transmit feedback.'}
-                </p>
-            </div>`;
-        document.getElementById('loadMoreBtn').style.display = 'none';
-        return;
-    }
-
-    const slice = filtered.slice(0, (feedPage + 1) * PAGE_SIZE);
-    container.innerHTML = slice.map((entry, i) => buildFeedCard(entry, i)).join('');
-
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
-    loadMoreBtn.style.display = filtered.length > slice.length ? 'block' : 'none';
-}
-
-function buildFeedCard(entry, index) {
-    const voted   = hasVoted(entry.id);
-    const upvotes = entry.upvotes || 0;
-    const date    = new Date(entry.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    const safe    = entry.context.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-
-    return `
-        <div class="feed-card" style="animation-delay:${index * 0.04}s" id="feed-card-${entry.id}">
-            <div class="feed-card-meta">
-                ${entry.topic ? `<span class="feed-topic-badge">${entry.topic}</span>` : ''}
-                <span class="feed-date">${date}</span>
-            </div>
-            <p class="feed-text">${safe}</p>
-            <div class="upvote-row">
-                <button class="upvote-btn ${voted ? 'voted' : ''}"
-                    onclick="${voted ? '' : `upvote('${entry.id}', this)`}"
-                    id="upvote-btn-${entry.id}">
-                    ▲ ${voted ? 'Upvoted' : 'Amplify'}
-                </button>
-                <span class="upvote-count" id="upvote-count-${entry.id}">${upvotes > 0 ? upvotes + (upvotes === 1 ? ' voice' : ' voices') : ''}</span>
-            </div>
-        </div>`;
-}
-
-function loadMore() {
-    feedPage++;
-    renderFeed();
-}
-
-function updateFeedCount() {
-    const countEl = document.getElementById('feedCount');
-    if (feedData.length > 0) {
-        countEl.textContent = feedData.length + ' transmission' + (feedData.length !== 1 ? 's' : '');
-    } else {
-        countEl.textContent = '';
-    }
-}
-
-async function upvote(id, btn) {
-    if (hasVoted(id)) return;
-
-    btn.classList.add('voted');
-    btn.innerHTML = '▲ Upvoted';
-    btn.onclick = null;
-    markVoted(id);
-
-    const entry = feedData.find(e => String(e.id) === String(id));
-    const newCount = (entry ? (entry.upvotes || 0) : 0) + 1;
-    const countEl = document.getElementById('upvote-count-' + id);
-    if (countEl) countEl.textContent = newCount + (newCount === 1 ? ' voice' : ' voices');
-    if (entry) entry.upvotes = newCount;
-
-    const { data: current } = await sb
-        .from('eagle_voice_approved')
-        .select('upvotes')
-        .eq('id', id)
-        .single();
-
- const { error } = await sb.rpc('increment_upvotes', { row_id: id });
-if (error) console.error('Upvote error:', error.message);
 }
 
 function copyEmailToClipboard() {
@@ -970,179 +474,6 @@ function copyEmailToClipboard() {
 function openPrivacy()  { document.getElementById('privacyModal').style.display = 'block'; document.body.style.overflow = 'hidden'; }
 function closePrivacy() { document.getElementById('privacyModal').style.display = 'none';  document.body.style.overflow = 'auto'; }
 window.onclick = function(e) { if (e.target === document.getElementById('privacyModal')) closePrivacy(); };
-
-function openAdmin() {
-    document.getElementById('adminPanel').classList.add('show');
-    document.getElementById('adminLogin').style.display = 'block';
-    document.getElementById('adminDash').style.display  = 'none';
-    document.getElementById('adminPwInput').value = '';
-    document.getElementById('adminErr').textContent = '';
-    document.body.style.overflow = 'hidden';
-}
-
-function closeAdmin() {
-    document.getElementById('adminPanel').classList.remove('show');
-    document.body.style.overflow = 'auto';
-}
-
-function adminLogin() {
-    const pw = document.getElementById('adminPwInput').value;
-    if (pw === ADMIN_PW) {
-        document.getElementById('adminLogin').style.display = 'none';
-        document.getElementById('adminDash').style.display  = 'block';
-        loadAdminStats();
-        loadAdminQueue();
-    } else {
-        document.getElementById('adminErr').textContent = 'Incorrect password.';
-    }
-}
-
-function switchAdminTab(tab, el) {
-    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-    document.getElementById('adminTabQueue').style.display     = tab === 'queue'     ? 'block' : 'none';
-    document.getElementById('adminTabPublished').style.display = tab === 'published' ? 'block' : 'none';
-    if (tab === 'published') loadPublishedEntries();
-}
-
-async function loadAdminStats() {
-    const { data: all }  = await sb.from('eagle_voice').select('id', { count: 'exact' });
-    const { data: pub }  = await sb.from('eagle_voice_approved').select('id', { count: 'exact' });
-    const totalAll       = all  ? all.length  : 0;
-    const totalPub       = pub  ? pub.length  : 0;
-    const pending        = totalAll - totalPub;
-
-    document.getElementById('statPending').textContent   = pending   >= 0 ? pending   : '—';
-    document.getElementById('statPublished').textContent = totalPub;
-    document.getElementById('statTotal').textContent     = totalAll;
-}
-
-async function loadAdminQueue() {
-    const container = document.getElementById('adminEntries');
-    container.innerHTML = '<div style="text-align:center;padding:20px;color:#a0a0a0;font-size:0.8rem;">Loading...</div>';
-
-    const { data, error } = await sb
-        .from('eagle_voice')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-    if (error) {
-        container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--red);font-size:0.8rem;">Error loading queue.</div>';
-        return;
-    }
-
-    if (!data || data.length === 0) {
-        container.innerHTML = '<div style="text-align:center;padding:20px;color:#a0a0a0;font-size:0.8rem;">Queue is empty.</div>';
-        return;
-    }
-
-    const isPrivateOnly = e => (e.allow_live_feed === false || e.allow_live_feed === 'false');
-
-    container.innerHTML = data.map(entry => `
-        <div class="admin-entry" id="admin-entry-${entry.id}">
-            <div class="admin-entry-meta">
-                ${entry.topic ? `<span class="admin-badge topic">${entry.topic}</span>` : ''}
-                <span class="admin-badge">${new Date(entry.created_at).toLocaleDateString()}</span>
-                ${isPrivateOnly(entry) ? `<span class="admin-badge" style="border-color:var(--yellow);color:var(--yellow);">PRIVATE ONLY</span>` : ''}
-            </div>
-            <p class="admin-text">${entry.context.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</p>
-            <div class="admin-actions">
-                ${!isPrivateOnly(entry)
-                    ? `<button class="admin-btn approve" id="approve-btn-${entry.id}" onclick="approveEntry('${entry.id}', this)">✓ Approve for Feed</button>`
-                    : ''}
-                <button class="admin-btn reject" id="dismiss-btn-${entry.id}" onclick="dismissEntry('${entry.id}')">✕ Dismiss</button>
-            </div>
-        </div>
-    `).join('');
-}
-
-async function approveEntry(id, btn) {
-    btn.textContent = 'Approving...';
-    btn.disabled    = true;
-
-    const { data: entry, error: fetchErr } = await sb
-        .from('eagle_voice')
-        .select('context, topic')
-        .eq('id', id)
-        .single();
-
-    if (fetchErr || !entry) {
-        btn.textContent = '✓ Approve for Feed';
-        btn.disabled    = false;
-        alert('Could not fetch entry: ' + (fetchErr ? fetchErr.message : 'not found'));
-        return;
-    }
-
-    const { error } = await sb
-        .from('eagle_voice_approved')
-        .insert([{ context: entry.context, topic: entry.topic || null, upvotes: 0 }]);
-
-    if (error) {
-        btn.textContent = '✓ Approve for Feed';
-        btn.disabled    = false;
-        alert('Error publishing: ' + error.message);
-        return;
-    }
-
-    const actions = document.querySelector(`#admin-entry-${id} .admin-actions`);
-    actions.innerHTML = '<button class="admin-btn approved-already" disabled>✓ Published to Feed</button>';
-    loadAdminStats();
-}
-
-function dismissEntry(id) {
-    const el = document.getElementById('admin-entry-' + id);
-    el.style.opacity        = '0.3';
-    el.style.pointerEvents  = 'none';
-    const actions = el.querySelector('.admin-actions');
-    if (actions) actions.innerHTML = '<button class="admin-btn rejected-already" disabled>✕ Dismissed</button>';
-}
-
-async function loadPublishedEntries() {
-    const container = document.getElementById('publishedEntries');
-    container.innerHTML = '<div style="text-align:center;padding:20px;color:#a0a0a0;font-size:0.8rem;">Loading...</div>';
-
-    const { data, error } = await sb
-        .from('eagle_voice_approved')
-        .select('*')
-        .order('upvotes', { ascending: false });
-
-    if (error || !data || data.length === 0) {
-        container.innerHTML = '<div style="text-align:center;padding:20px;color:#a0a0a0;font-size:0.8rem;">' + (error ? 'Error loading.' : 'No published entries yet.') + '</div>';
-        return;
-    }
-
-    container.innerHTML = data.map(entry => `
-        <div class="published-entry" id="pub-entry-${entry.id}">
-            <div class="published-entry-meta">
-                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-                    ${entry.topic ? `<span class="admin-badge topic">${entry.topic}</span>` : ''}
-                    <span class="admin-badge">${new Date(entry.created_at).toLocaleDateString()}</span>
-                </div>
-                <span class="published-upvotes">▲ ${entry.upvotes || 0} voices</span>
-            </div>
-            <p class="admin-text">${entry.context.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</p>
-            <button class="remove-btn" onclick="removeFromFeed('${entry.id}')">Remove from Feed</button>
-        </div>
-    `).join('');
-}
-
-async function removeFromFeed(id) {
-    if (!confirm('Remove this entry from the Live Feed?')) return;
-
-    const { error } = await sb
-        .from('eagle_voice_approved')
-        .delete()
-        .eq('id', id);
-
-    if (error) { alert('Error removing: ' + error.message); return; }
-
-    const el = document.getElementById('pub-entry-' + id);
-    if (el) el.remove();
-    loadAdminStats();
-    feedData = feedData.filter(e => String(e.id) !== String(id));
-    updateFeedCount();
-}
-
 </script>
 </body>
 </html>
