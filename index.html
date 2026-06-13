@@ -192,21 +192,32 @@
         .secondary-btn:hover, .secondary-btn:active { color: #fff; border-color: var(--unt-green); background: var(--green-dim); }
 
         .success-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: fixed;
+            inset: 0;
+            background-color: var(--dark-base);
+            overflow-y: auto;
+            padding: 40px 20px;
             text-align: center;
             opacity: 0;
             transition: all 0.8s ease 0.2s;
-            width: calc(100% - 40px);
-            max-width: 480px;
             pointer-events: none;
             z-index: 50;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            
+            /* Nuke the scrollbar visually */
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
         }
+        
+        .success-message::-webkit-scrollbar { 
+            display: none; 
+            width: 0 !important; 
+            height: 0 !important; 
+        }
+
         .success-message.show { opacity: 1; pointer-events: auto; }
         
         .logo-animate { display: inline-block; animation: logo-glow 3s ease-in-out infinite; }
@@ -277,7 +288,18 @@
          style="width:85px;height:85px;margin-bottom:25px;object-fit:contain;image-rendering: -webkit-optimize-contrast;">
     <h2 style="text-transform:uppercase;letter-spacing:2px;font-size:clamp(1rem,4vw,1.3rem);">Transmission Complete</h2>
 
-    <div style="margin:20px auto;font-size:0.85rem;padding:5px 0;text-align:center;display:table;">
+    <div id="tx-receipt" style="background: #131313; border: 1px solid #333; padding: 15px; text-align: left; margin: 20px auto; width: 100%; max-width: 300px; font-family: monospace; font-size: 0.75rem; color: #888; line-height: 1.8;">
+        <div style="color: var(--unt-green); font-weight: 700; margin-bottom: 10px; font-size: 0.85rem; border-bottom: 1px solid #333; padding-bottom: 8px; letter-spacing: 1px;">
+            RECEIPT // <span id="receipt-id">TX-000000</span>
+        </div>
+        <div>STATUS: <span style="color: #fff; float: right;">LOGGED & SECURED</span></div>
+        <div>TOPIC: <span id="receipt-topic" style="color: #fff; float: right;">UNSPECIFIED</span></div>
+        <div>TIME: <span id="receipt-time" style="color: #fff; float: right;">00:00:00</span></div>
+    </div>
+    
+    <button onclick="copyTxId(event)" style="background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 8px 16px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-bottom: 20px; font-family: 'Inter', sans-serif;">Copy ID to Clipboard</button>
+    
+    <div style="margin:10px auto 20px;font-size:0.85rem;padding:5px 0;text-align:center;display:table;">
         <p><strong>What Happens Next?</strong></p>
         <ul style="list-style:none;padding:0;color:var(--text-secondary);margin-top:10px;line-height:1.8;">
             <li>• Human Review: Committee members review logs bi-weekly.</li>
@@ -396,7 +418,6 @@ function toggleTag(el) {
         el.classList.add('selected'); 
         selectedTag = el.dataset.tag; 
         
-        // Dynamically show input if "Other" is picked
         if (selectedTag === 'Other') {
             customWrapper.style.display = 'block';
             customInput.focus();
@@ -439,9 +460,16 @@ async function handleSubmit() {
         finalTopic = `Other: ${customInput.value.trim()}`;
     }
 
+    // Generate a tactical, alphanumeric ID
+    const txId = 'TX-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+    // Secretly prepend it to the text payload for the backend
+    const finalFeedback = `[${txId}] ${feedback}`;
+
+    // Insert payload without the .select() function to satisfy RLS
     const { error } = await sb
         .from('eagle_voice')
-        .insert([{ context: feedback, topic: finalTopic, allow_live_feed: false }]);
+        .insert([{ context: finalFeedback, topic: finalTopic, allow_live_feed: false }]);
 
     if (error) {
         console.error('Error:', error.message);
@@ -453,9 +481,29 @@ async function handleSubmit() {
         return;
     }
 
+    // --- POPULATE THE DATA RECEIPT ---
+    const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
+    document.getElementById('receipt-id').innerText = txId;
+    document.getElementById('receipt-topic').innerText = finalTopic ? finalTopic.toUpperCase() : 'UNSPECIFIED';
+    document.getElementById('receipt-time').innerText = timestamp;
+
     card.classList.add('submitted');
     success.classList.add('show');
     footer.classList.add('hide');
+}
+
+function copyTxId(event) {
+    const id = document.getElementById('receipt-id').innerText;
+    navigator.clipboard.writeText(id).then(() => {
+        const btn = event.target;
+        const originalText = btn.innerText;
+        btn.innerText = "COPIED!";
+        btn.style.background = "var(--green-dim)";
+        setTimeout(() => { 
+            btn.innerText = originalText; 
+            btn.style.background = "transparent";
+        }, 1500);
+    });
 }
 
 function resetForm() {
@@ -472,7 +520,6 @@ function resetForm() {
     input.value = '';
     input.style.borderColor = '#333333';
     
-    // Reset custom inputs
     customInput.value = '';
     customWrapper.style.display = 'none';
     
@@ -481,12 +528,18 @@ function resetForm() {
     document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('selected'));
     selectedTag = null;
     
+    // Clear out receipt details for the next transmission
+    document.getElementById('receipt-id').innerText = 'TX-000000';
+    document.getElementById('receipt-topic').innerText = 'UNSPECIFIED';
+    document.getElementById('receipt-time').innerText = '00:00:00';
+    
     footer.classList.remove('hide');
     card.classList.remove('submitted');
     button.innerText = 'Transmit Feedback';
     button.disabled  = false;
     button.style.opacity = '1';
     button.style.cursor  = 'pointer';
+    
     setTimeout(() => { success.style.transition = 'all 0.8s ease 0.2s'; }, 100);
 }
 
