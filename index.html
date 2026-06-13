@@ -266,6 +266,15 @@
         <button class="tag-chip" onclick="toggleTag(this)" data-tag="Other">Other</button>
     </div>
 
+    <div id="mental-health-resources" style="display: none; background: #1a1a1a; border-left: 3px solid var(--yellow); padding: 15px; margin-bottom: 18px; font-size: 0.8rem; color: #ccc;">
+        <span style="color: var(--yellow); font-family: monospace; font-weight: bold; margin-bottom: 8px; display: block;">> SYSTEM NOTICE: SUPPORT RESOURCES</span>
+        If you or someone you know is in distress, immediate support is available.<br><br>
+        • <strong>National Suicide & Crisis Lifeline:</strong> Dial or text 988 (24/7)<br>
+        • <strong>Counseling and Testing Services:</strong> (940) 565-2741<br>
+        • <strong>Dean of Students Office:</strong> (940) 565-2039<br><br>
+        <em style="font-size: 0.7rem; color: #888;">Note: This portal logs advocacy data and is not monitored for emergency response.</em>
+    </div>
+
     <div id="custom-topic-wrapper" style="display: none; margin-bottom: 18px;">
         <span class="tags-label">Specify Topic Keyword</span>
         <input type="text" id="custom-topic-input" placeholder="e.g., Parking, Financial Aid..." 
@@ -416,15 +425,23 @@ function toggleTag(el) {
     const chips = document.querySelectorAll('.tag-chip');
     const customWrapper = document.getElementById('custom-topic-wrapper');
     const customInput = document.getElementById('custom-topic-input');
+    const mhResources = document.getElementById('mental-health-resources');
     
     if (el.classList.contains('selected')) { 
         el.classList.remove('selected'); 
         selectedTag = null; 
         customWrapper.style.display = 'none';
+        mhResources.style.display = 'none';
     } else { 
         chips.forEach(c => c.classList.remove('selected')); 
         el.classList.add('selected'); 
         selectedTag = el.dataset.tag; 
+
+        if (selectedTag === 'Mental Health') {
+            mhResources.style.display = 'block';
+        } else {
+            mhResources.style.display = 'none';
+        }
         
         if (selectedTag === 'Other') {
             customWrapper.style.display = 'block';
@@ -526,6 +543,7 @@ function resetForm() {
     
     customInput.value = '';
     customWrapper.style.display = 'none';
+    document.getElementById('mental-health-resources').style.display = 'none';
     
     document.getElementById('charCounter').textContent = '0 / 600';
     document.getElementById('charCounter').classList.remove('warn', 'over');
