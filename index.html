@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +53,7 @@
             padding: 40px 15px 60px;
             overflow-x: hidden;
         }
-       
+
         .social-links {
             margin-top: 5px;
             margin-bottom: 20px;
@@ -87,7 +85,6 @@
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             z-index: 2;
-            margin-top: 20px;
         }
         .card.submitted { transform: translateY(-30px); opacity: 0; pointer-events: none; }
 
@@ -131,7 +128,7 @@
             border-radius: 0;
             -webkit-appearance: none;
         }
-        textarea:focus { border-color: var(--unt-green); }
+        textarea:focus, input[type="text"]:focus { border-color: var(--unt-green); }
 
         .char-counter { text-align: right; font-size: 0.65rem; color: var(--text-secondary); margin-bottom: 18px; letter-spacing: 0.5px; transition: color 0.2s; }
         .char-counter.warn { color: var(--yellow); }
@@ -259,6 +256,12 @@
         <button class="tag-chip" onclick="toggleTag(this)" data-tag="Other">Other</button>
     </div>
 
+    <div id="custom-topic-wrapper" style="display: none; margin-bottom: 18px;">
+        <span class="tags-label">Specify Topic Keyword</span>
+        <input type="text" id="custom-topic-input" placeholder="e.g., Parking, Financial Aid..." 
+               style="width: 100%; padding: 12px; background: var(--dark-base); border: 1px solid var(--border); color: white; font-size: 0.9rem; outline: none; border-radius: 0; transition: border-color 0.2s;">
+    </div>
+
     <label for="thought-input" class="sr-only">Input your feedback</label>
     <textarea id="thought-input" maxlength="600" oninput="updateCharCount(this)" placeholder="What should the President know? Share your anonymous thoughts on campus life or student retention..."></textarea>
 
@@ -308,7 +311,7 @@
         </a>
     </div>
     <div style="font-size:0.75rem;color:#aaa;position:relative;">
-        <span style="font-weight:bold; cursor:default;">© 2026 EagleVoice. All rights reserved.</span>
+        <span style="font-weight:bold; cursor:default;">© 2026 EagleVoice.org. All rights reserved.</span>
 
         <div id="copyAlert" style="display:inline-block;position:absolute;bottom:45px;left:50%;transform:translateX(-50%);background:#00853e;color:#fff;font-size:10px;padding:4px 10px;border-radius:3px;font-weight:600;opacity:0;transition:opacity 0.3s ease;pointer-events:none;letter-spacing:0.5px;text-transform:uppercase;">Email Copied!</div>
 
@@ -381,13 +384,26 @@ let selectedTag = null;
 
 function toggleTag(el) {
     const chips = document.querySelectorAll('.tag-chip');
+    const customWrapper = document.getElementById('custom-topic-wrapper');
+    const customInput = document.getElementById('custom-topic-input');
+    
     if (el.classList.contains('selected')) { 
         el.classList.remove('selected'); 
         selectedTag = null; 
+        customWrapper.style.display = 'none';
     } else { 
         chips.forEach(c => c.classList.remove('selected')); 
         el.classList.add('selected'); 
         selectedTag = el.dataset.tag; 
+        
+        // Dynamically show input if "Other" is picked
+        if (selectedTag === 'Other') {
+            customWrapper.style.display = 'block';
+            customInput.focus();
+        } else {
+            customWrapper.style.display = 'none';
+            customInput.value = '';
+        }
     }
 }
 
@@ -400,9 +416,7 @@ function updateCharCount(el) {
     else if (len > 450) counter.classList.add('warn');
 }
 
-function toggleMission() { 
-    document.getElementById('missionPopup').classList.toggle('show'); 
-}
+function toggleMission() { document.getElementById('missionPopup').classList.toggle('show'); }
 
 async function handleSubmit() {
     const card    = document.getElementById('panel-submit');
@@ -410,6 +424,7 @@ async function handleSubmit() {
     const footer  = document.getElementById('footerSection');
     const input   = document.getElementById('thought-input');
     const button  = document.querySelector('.submit-btn');
+    const customInput = document.getElementById('custom-topic-input');
     const feedback = input.value.trim();
 
     if (!feedback) { input.style.borderColor = 'red'; return; }
@@ -419,10 +434,14 @@ async function handleSubmit() {
     button.style.opacity = '0.7';
     button.style.cursor  = 'not-allowed';
 
-    // payload simplified — allow_live_feed field defaults to false now
+    let finalTopic = selectedTag;
+    if (selectedTag === 'Other' && customInput.value.trim()) {
+        finalTopic = `Other: ${customInput.value.trim()}`;
+    }
+
     const { error } = await sb
         .from('eagle_voice')
-        .insert([{ context: feedback, topic: selectedTag, allow_live_feed: false }]);
+        .insert([{ context: feedback, topic: finalTopic, allow_live_feed: false }]);
 
     if (error) {
         console.error('Error:', error.message);
@@ -445,15 +464,23 @@ function resetForm() {
     const footer  = document.getElementById('footerSection');
     const input   = document.getElementById('thought-input');
     const button  = document.querySelector('.submit-btn');
+    const customWrapper = document.getElementById('custom-topic-wrapper');
+    const customInput = document.getElementById('custom-topic-input');
 
     success.style.transition = 'none';
     success.classList.remove('show');
     input.value = '';
     input.style.borderColor = '#333333';
+    
+    // Reset custom inputs
+    customInput.value = '';
+    customWrapper.style.display = 'none';
+    
     document.getElementById('charCounter').textContent = '0 / 600';
     document.getElementById('charCounter').classList.remove('warn', 'over');
     document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('selected'));
     selectedTag = null;
+    
     footer.classList.remove('hide');
     card.classList.remove('submitted');
     button.innerText = 'Transmit Feedback';
@@ -474,6 +501,7 @@ function copyEmailToClipboard() {
 function openPrivacy()  { document.getElementById('privacyModal').style.display = 'block'; document.body.style.overflow = 'hidden'; }
 function closePrivacy() { document.getElementById('privacyModal').style.display = 'none';  document.body.style.overflow = 'auto'; }
 window.onclick = function(e) { if (e.target === document.getElementById('privacyModal')) closePrivacy(); };
+
 </script>
 </body>
 </html>
