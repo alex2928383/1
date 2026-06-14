@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8JB4VE0MSD"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -421,6 +422,18 @@ const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
 let selectedTag = null;
 
+// --- 1. YOUR PUBLIC KEY ---
+const EAGLEVOICE_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0ViTk4zxogQ2HqBvbp5M
+AKcul+z00nc8KpXgqpT3Ai0DnR4aUAyMfKBmMwCjs4+JOsQhSzPTedfm00ZXUQwR
+3UYuEa2PTcE80SPD2W29M5euZ6eHu9HDvtMUe39bIXRZsQFULmsSB5JF5IpkY7/L
+T2fLbwjHIuR801v8yIFdfXUmCYQeFtQaVP4rcBOAIHKfQ8wRCJ5GJrPkwcTUgTKY
+2HyedkJhiEaUldIpvKrbcK9DQqGop9UfSSt0k4PdR4FH5GeIZR081Kj+eEftm5a8
+87YBTVxsxuK57WHtr98yUHHeji47I7O3Jx9CG6uTS9h4ieIjDYwtNsOEafkRqHFp
+NQIDAQAB
+-----END PUBLIC KEY-----`;
+// --------------------------
+
 function toggleTag(el) {
     const chips = document.querySelectorAll('.tag-chip');
     const customWrapper = document.getElementById('custom-topic-wrapper');
@@ -487,9 +500,26 @@ async function handleSubmit() {
 
     const txId = 'TX-' + Math.random().toString(36).substring(2, 8).toUpperCase();
 
+    // --- 2. ENCRYPTION LOGIC ---
+    const encryptor = new JSEncrypt();
+    encryptor.setPublicKey(EAGLEVOICE_PUBLIC_KEY);
+    const scrambledFeedback = encryptor.encrypt(feedback);
+
+    if (!scrambledFeedback) {
+        console.error('Encryption failed.');
+        button.innerText = 'Transmit Feedback';
+        button.disabled  = false;
+        button.style.opacity = '1';
+        button.style.cursor  = 'pointer';
+        alert('Security Error: Failed to secure transmission.');
+        return;
+    }
+    // ---------------------------
+
+    // Insert scrambledFeedback instead of raw feedback
     const { error } = await sb
         .from('eagle_voice')
-        .insert([{ tx_id: txId, context: feedback, topic: finalTopic, allow_live_feed: false }]);
+        .insert([{ tx_id: txId, context: scrambledFeedback, topic: finalTopic, allow_live_feed: false }]);
 
     if (error) {
         console.error('Error:', error.message);
