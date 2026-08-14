@@ -1,1260 +1,584 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js"></script>
-
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8JB4VE0MSD"></script>
-
     <script>
-
       window.dataLayer = window.dataLayer || [];
-
       function gtag(){dataLayer.push(arguments);}
-
       gtag('js', new Date());
 
-
-
       gtag('config', 'G-8JB4VE0MSD');
-
     </script>
-
     
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
     <title>EagleVoice | PSAC Insight Portal</title>
-
     <meta name="description" content="A platform for student advocacy and data-driven feedback for the President's Student Advisory Committee.">
-
     <meta name="google-site-verification" content="tFkecYo6n-hnKnQBTguHgk-XUotZ1KEsQ2NT0NorhXc" />
-
     <link rel="icon" href="/favicon.ico?v=3" sizes="48x48">
-
     <link rel="apple-touch-icon" href="/android-chrome-512x512.png">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-
-
     <style>
-
         :root {
-
             --unt-green: #00853E;
-
             --green-dim: rgba(0,133,62,0.15);
-
             --dark-base: #121212;
-
             --surface: #1e1e1e;
-
             --border: #333333;
-
             --text-primary: #ffffff;
-
             --text-secondary: #a0a0a0;
-
             --red: #e85454;
-
             --yellow: #e8b84b;
-
             --touch: 44px;
-
         }
-
-
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
 
-
-
         html, body {
-
             background-color: var(--dark-base);
-
             color: var(--text-primary);
-
             min-height: 100vh;
-
             scrollbar-width: none;
-
             -ms-overflow-style: none;
-
             -webkit-text-size-adjust: 100%;
-
         }
-
         html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !important; height: 0 !important; }
 
-
-
         body {
-
             display: flex;
-
             flex-direction: column;
-
             align-items: center;
-
             justify-content: flex-start;
-
             padding: 40px 15px 60px;
-
             overflow-x: hidden;
-
         }
-
-
 
         .social-links {
-
             margin-top: 5px;
-
             margin-bottom: 20px;
-
             display: flex;
-
             justify-content: center;
-
             gap: 15px;
-
         }
-
         
-
         .social-icon {
-
             color: #888;
-
             transition: color 0.2s ease, transform 0.2s ease;
-
             display: inline-flex;
-
             align-items: center;
-
             text-decoration: none;
-
         }
-
         
-
         .social-icon:hover {
-
             color: var(--unt-green);
-
             transform: translateY(-2px);
-
         }
-
        
-
         .card {
-
             width: 100%;
-
             max-width: 480px;
-
             background-color: var(--surface);
-
             border: 1px solid var(--border);
-
             box-shadow: none;
-
             padding: 30px;
-
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-
             position: relative;
-
             z-index: 2;
-
         }
-
         .card.submitted { transform: translateY(-30px); opacity: 0; pointer-events: none; }
 
-
-
         .mission-overlay {
-
             display: none;
-
             position: absolute;
-
             top: 0; left: 0;
-
             width: 100%; height: 100%;
-
             background: rgba(10,10,10,0.98);
-
             z-index: 10;
-
             padding: 30px;
-
             box-sizing: border-box;
-
             border: 1px solid var(--border);
-
             flex-direction: column;
-
             justify-content: center;
-
             text-align: left;
-
         }
-
         .mission-overlay.show { display: flex; }
-
         .mission-content h3 { color: var(--unt-green); letter-spacing: 2px; margin-bottom: 15px; border-bottom: 1px solid var(--border); font-size: 1.1rem; }
-
         .mission-content p { font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 20px; }
-
         .info-trigger { position: absolute; top: 15px; right: 20px; font-size: 0.7rem; color: var(--text-secondary); cursor: pointer; letter-spacing: 1px; font-weight: 600; min-height: var(--touch); display: flex; align-items: center; }
-
         .info-trigger:hover, .info-trigger:active { color: var(--unt-green); }
-
         .close-btn { background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 12px 20px; cursor: pointer; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; min-height: var(--touch); }
 
-
-
         .header-section { border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 30px; }
-
         h1 { font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-
         .subtitle { font-size: 0.85rem; color: var(--text-secondary); margin-top: 5px; }
 
-
-
         textarea {
-
             width: 100%;
-
             height: 160px;
-
             background: var(--dark-base);
-
             border: 1px solid var(--border);
-
             padding: 15px;
-
             color: white;
-
             font-size: 1rem;
-
             resize: none;
-
             outline: none;
-
             margin-bottom: 6px;
-
             transition: border-color 0.2s;
-
             border-radius: 0;
-
             -webkit-appearance: none;
-
         }
-
         textarea:focus, input[type="text"]:focus { border-color: var(--unt-green); }
 
-
-
         .char-counter { text-align: right; font-size: 0.65rem; color: var(--text-secondary); margin-bottom: 18px; letter-spacing: 0.5px; transition: color 0.2s; }
-
         .char-counter.warn { color: var(--yellow); }
-
         .char-counter.over { color: var(--red); }
 
-
-
         .tags-label { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; display: block; }
-
         .tags-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
-
         .tag-chip {
-
             padding: 0 14px;
-
             height: var(--touch);
-
             border: 1px solid var(--border);
-
             background: transparent;
-
             color: var(--text-secondary);
-
             font-size: 0.7rem;
-
             font-weight: 600;
-
             letter-spacing: 1px;
-
             text-transform: uppercase;
-
             cursor: pointer;
-
             transition: all 0.2s;
-
             display: flex;
-
             align-items: center;
-
         }
-
         .tag-chip:hover { border-color: var(--unt-green); color: #fff; }
-
         .tag-chip.selected { border-color: var(--unt-green); background: var(--green-dim); color: var(--unt-green); }
 
-
-
         .submit-btn {
-
             width: 100%;
-
             min-height: var(--touch);
-
             padding: 15px;
-
             background-color: var(--unt-green);
-
             color: white;
-
             border: none;
-
             font-weight: 600;
-
             text-transform: uppercase;
-
             letter-spacing: 1px;
-
             cursor: pointer;
-
             transition: background 0.2s;
-
             font-size: 0.9rem;
-
             border-radius: 0;
-
             -webkit-appearance: none;
-
         }
-
         .submit-btn:hover, .submit-btn:active { background-color: #00a04a; }
 
-
-
         .secondary-btn {
-
             background-color: transparent;
-
             color: #888;
-
             border: 1px solid #444;
-
             padding: 0 24px;
-
             min-height: var(--touch);
-
             font-size: 0.75rem;
-
             letter-spacing: 1.5px;
-
             text-transform: uppercase;
-
             cursor: pointer;
-
             transition: all 0.3s ease;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             margin: 20px auto 0;
-
             border-radius: 0;
-
         }
-
         .secondary-btn:hover, .secondary-btn:active { color: #fff; border-color: var(--unt-green); background: var(--green-dim); }
 
-
-
         .success-message {
-
             position: fixed;
-
             inset: 0;
-
             background-color: var(--dark-base);
-
             overflow-y: auto;
-
             padding: 40px 20px;
-
             text-align: center;
-
             opacity: 0;
-
             transition: all 0.8s ease 0.2s;
-
             pointer-events: none;
-
             z-index: 50;
-
             display: flex;
-
             flex-direction: column;
-
             align-items: center;
-
             justify-content: center;
-
             
-
             scrollbar-width: none; 
-
             -ms-overflow-style: none; 
-
         }
-
         
-
         .success-message::-webkit-scrollbar { 
-
             display: none; 
-
             width: 0 !important; 
-
             height: 0 !important; 
-
         }
-
-
 
         .success-message.show { opacity: 1; pointer-events: auto; }
-
         
-
         .logo-animate { display: inline-block; animation: logo-glow 3s ease-in-out infinite; }
-
         @keyframes logo-glow { 0%,100%{filter:drop-shadow(0 0 0px var(--unt-green))} 50%{filter:drop-shadow(0 0 8px rgba(0,133,62,0.6))} }
 
-
-
         .sr-only { position: absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
-
         .hide { opacity: 0 !important; pointer-events: none; transition: opacity 0.4s ease; }
-
-
 
         footer { text-align: center; margin-top: 50px; padding: 40px 20px; color: #888; line-height: 1.6; transition: opacity 0.4s ease; width: 100%; box-sizing: border-box; }
 
-
-
         @media (max-width: 480px) {
-
             h1 { font-size: 1.2rem; }
-
             .subtitle { font-size: 0.75rem; }
-
             .card { padding: 25px 20px; box-shadow: none; }
-
         }
-
     </style>
-
 </head>
-
 <body>
-
-
 
 <main class="card" id="panel-submit">
 
-
-
     <div id="missionPopup" class="mission-overlay">
-
         <div class="mission-content">
-
             <h3>MISSION BRIEFING</h3>
-
             <p><strong>EagleVoice</strong> is a data-driven initiative developed by Alex Martin, Member of the President's Student Advisory Committee, to bridge the gap between the student body and university leadership.</p>
-
             <p style="margin-top:10px;">Our committee conducts <strong>bi-weekly meetings</strong> to analyze student input. High-priority insights and recurring themes from these transmissions may be formally presented for consideration to <strong>President Harrison Keller</strong>.</p>
-
             
-
             <div style="margin-top:15px; padding: 12px; background: rgba(0, 133, 62, 0.08); border-left: 2px solid var(--unt-green);">
-
                 <strong style="color: var(--text-primary); font-size: 0.8rem; font-family: monospace; letter-spacing: 1px; display: block; margin-bottom: 5px;">> SECURITY PROTOCOL</strong>
-
-                <p style="margin-bottom: 0; font-size: 0.8rem;">To ensure uncompromised honesty, EagleVoice utilizes Client-Side End-to-End Encryption. Your feedback is mathematically locked on your device. Only authorized committee administrators hold the physical decryption key required to read the data in isolated review sessions.</p>
-
+                <p style="margin-bottom: 0; font-size: 0.8rem;">To ensure uncompromised honesty, EagleVoice provides a secure, direct channel for student feedback. Authorized committee administrators review submissions in isolated review sessions.</p>
             </div>
 
-
-
             <button type="button" onclick="toggleMission()" class="close-btn" style="margin-top:20px;">ACKNOWLEDGE</button>
-
         </div>
-
     </div>
-
-
 
     <div class="info-trigger" onclick="toggleMission()">[?] PROJECT INFO</div>
 
-
-
     <div class="header-section">
-
         <h1 class="logo-animate">EagleVoice</h1>
-
         <p class="subtitle">Student Advisory Insight Portal</p>
-
     </div>
-
-
 
     <span class="tags-label">Select a topic (optional)</span>
-
     <div class="tags-grid" id="tagGrid">
-
         <button class="tag-chip" onclick="toggleTag(this)" data-tag="Housing">Housing</button>
-
         <button class="tag-chip" onclick="toggleTag(this)" data-tag="Tuition">Tuition</button>
-
         <button class="tag-chip" onclick="toggleTag(this)" data-tag="Dining">Dining</button>
-
         <button class="tag-chip" onclick="toggleTag(this)" data-tag="Safety">Safety</button>
-
         <button class="tag-chip" onclick="toggleTag(this)" data-tag="Academics">Academics</button>
-
         <button class="tag-chip" onclick="toggleTag(this)" data-tag="Mental Health">Mental Health</button>
-
         <button class="tag-chip" onclick="toggleTag(this)" data-tag="Campus Life">Campus Life</button>
-
         <button class="tag-chip" onclick="toggleTag(this)" data-tag="Other">Other</button>
-
     </div>
-
-
 
     <div id="mental-health-resources" style="display: none; background: #1a1a1a; border-left: 3px solid var(--yellow); padding: 15px; margin-bottom: 18px; font-size: 0.8rem; color: #ccc;">
-
         <span style="color: var(--yellow); font-family: monospace; font-weight: bold; margin-bottom: 8px; display: block;">> SYSTEM NOTICE: SUPPORT RESOURCES</span>
-
         If you or someone you know is in distress, immediate support is available.<br><br>
-
         • <strong>National Suicide & Crisis Lifeline:</strong> Dial or text 988 (24/7)<br>
-
         • <strong>Counseling and Testing Services:</strong> (940) 565-2741<br>
-
         • <strong>Dean of Students Office:</strong> (940) 565-2039<br><br>
-
         <em style="font-size: 0.7rem; color: #888;">Note: This portal logs advocacy data and is not monitored for emergency response.</em>
-
     </div>
-
-
 
     <div id="custom-topic-wrapper" style="display: none; margin-bottom: 18px;">
-
         <span class="tags-label">Specify Topic Keyword</span>
-
         <input type="text" id="custom-topic-input" placeholder="e.g., Parking, Financial Aid..." 
-
                maxlength="40"
-
                style="width: 100%; padding: 12px; background: var(--dark-base); border: 1px solid var(--border); color: white; font-size: 0.9rem; outline: none; border-radius: 0; transition: border-color 0.2s;">
-
     </div>
 
-
-
    <label for="thought-input" class="sr-only">Input your feedback</label>
-
     <textarea id="thought-input" maxlength="600" oninput="updateCharCount(this)" placeholder="What should the President know? Share your anonymous thoughts on campus life or student retention..."></textarea>
-
-
-
 
 
     <div class="char-counter" id="charCounter">0 / 600</div>
 
-
-
     <div style="background: rgba(0, 133, 62, 0.05); border: 1px solid var(--border); border-left: 3px solid var(--unt-green); padding: 12px 15px; margin-bottom: 20px; font-size: 0.75rem; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 10px; text-align: left;">
-
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--unt-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;">
-
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-
         </svg>
-
         <div>
-
-            <strong style="color: #fff; font-family: monospace; letter-spacing: 1px; display: block; margin-bottom: 4px;">ZERO-KNOWLEDGE ENCRYPTION ACTIVE</strong>
-
-            This payload is scrambled in your browser before transmission. We cannot trace or read your identity, even if compelled.
-
+            <strong style="color: #fff; font-family: monospace; letter-spacing: 1px; display: block; margin-bottom: 4px;">SECURE TRANSMISSION CHANNEL</strong>
+            Your feedback is routed directly to committee records for review and aggregation.
         </div>
-
     </div>
-
-
 
     <button class="submit-btn" onclick="handleSubmit()">Transmit Feedback</button>
-
 </main>
 
-
-
 <div class="success-message" id="successMsg">
-
     <img src="https://eaglevoice.org/android-chrome-512x512.png"
-
          alt="EagleVoice Logo"
-
          class="logo-animate"
-
          style="width:85px;height:85px;margin-bottom:20px;object-fit:contain;image-rendering: -webkit-optimize-contrast;">
-
     <h2 style="text-transform:uppercase;letter-spacing:2px;font-size:clamp(1.1rem,4vw,1.3rem); margin-bottom: 25px;">Transmission Complete</h2>
 
-
-
     <div id="tx-receipt" style="background: #181818; border-left: 3px solid var(--unt-green); padding: 16px 20px; text-align: left; width: 100%; max-width: 360px; margin-bottom: 30px;">
-
         
-
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 12px; margin-bottom: 12px;">
-
             <div style="font-family: monospace; color: var(--unt-green); font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;">
-
                 ID // <span id="receipt-id" style="color: #fff;">TX-000000</span>
-
             </div>
-
             <button onclick="copyTxId(event)" style="background: transparent; border: 1px solid var(--unt-green); color: var(--unt-green); padding: 4px 10px; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s;">
-
                 Copy
-
             </button>
-
         </div>
-
         
-
         <div style="font-family: monospace; font-size: 0.75rem; color: #888; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-
-            <div>STATUS: <span style="color: #fff;">SECURED</span></div>
-
+            <div>STATUS: <span style="color: #fff;">LOGGED</span></div>
             <div>TIME: <span id="receipt-time" style="color: #fff;">00:00:00</span></div>
-
             <div style="grid-column: span 2;">TOPIC: <span id="receipt-topic" style="color: #fff;">UNSPECIFIED</span></div>
-
         </div>
-
     </div>
-
     <div style="width: 100%; max-width: 360px; text-align: left; margin-bottom: 30px;">
-
         <div style="font-size: 0.65rem; color: #666; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; padding-left: 2px;">System Routing</div>
-
         
-
         <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; border-left: 1px solid #333; padding-left: 16px;">
-
             <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Committee members review logs bi-weekly.</div>
-
             <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Recurring themes compiled into briefing.</div>
-
             <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Actionable insights sent to President's Office.</div>
-
             <div><span style="color: var(--yellow); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Retain ID above to track status with Admin.</div>
-
         </div>
-
     </div>
-
-
 
     <button onclick="resetForm()" class="secondary-btn" style="width: 100%; max-width: 360px; margin-top: 0;">Submit Another Entry</button>
 
-
-
     <p style="font-style:italic; font-size: 0.7rem; color: #555; margin-top: 30px; letter-spacing: 0.5px;">
-
         EagleVoice: Bringing student voices to the table.
-
     </p>
-
 </div>
-
-
 
 <footer id="footerSection" style="position:relative;">
-
     <div style="font-size:0.7rem;letter-spacing:1px;margin-bottom:12px;opacity:0.8;text-transform:uppercase;">
-
         Independent Student Initiative • Not Officially Affiliated with University of North Texas
-
     </div>
-
     <div style="font-size:0.7rem;letter-spacing:1px;margin-bottom:20px;opacity:0.8;text-transform:uppercase;">
-
         Developed for the President's Student Advisory Committee
-
     </div>
-
     <hr style="border:0;border-top:1px solid #333;width:30px;margin:0 auto 15px auto;">
-
     <div class="social-links">
-
         <a href="https://www.instagram.com/eaglevoiceorg/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
-
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-
             </svg>
-
         </a>
-
     </div>
-
     <div style="font-size:0.75rem;color:#aaa;position:relative;">
-
         <span style="font-weight:bold; cursor:default;">© 2026 EagleVoice </span>
 
-
-
-        <div id="copyAlert" style="display:inline-block;position:absolute;bottom:45px;left:50%;transform:translateX(-50%);background:#00853e;color:#fff;font-size:10px;padding:4px 10px;border-radius:3px;font-weight:600;opacity:0;transition:opacity 0.3s ease;pointer-events:none;letter-spacing:0.5px;text-transform:uppercase;">Email Copied!</div>
-
-
-
         <p style="font-size:11px;margin-top:12px;letter-spacing:0.5px;">
-
-            <a href="javascript:void(0)" onclick="copyEmailToClipboard()" style="color:#00853e;text-decoration:none;font-weight:600;margin-right:12px;transition:color 0.2s;cursor:pointer;" onmouseover="this.style.color='#00a04a'" onmouseout="this.style.color='#00853e'">Contact Admin</a>
-
+            <a href="mailto:eaglevoice.info@gmail.com" style="color:#00853e;text-decoration:none;font-weight:600;margin-right:12px;transition:color 0.2s;cursor:pointer;" onmouseover="this.style.color='#00a04a'" onmouseout="this.style.color='#00853e'">Contact Admin</a>
             <span style="color:#333;">|</span>
-
-            <a href="javascript:void(0)" onclick="openPrivacy()" style="color:#888;text-decoration:underline;cursor:pointer;margin-left:12px;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#888'">Legal & Privacy Policy</a>
-
+            <a href="javascript:void(0);" onclick="openPrivacy(); return false;" style="color:#888;text-decoration:underline;cursor:pointer;margin-left:12px;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#888'">Legal & Privacy Policy</a>
         </p>
-
     </div>
-
 </footer>
 
-
-
 <div id="privacyModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,0.95);overflow-y:auto;">
-
     <div style="background-color:#1a1a1a;margin:5% auto;padding:35px;border:1px solid #333;width:90%;max-width:650px;color:white;border-radius:8px;line-height:1.7;text-align:left;">
-
         <h2 style="color:#00853e;margin-top:0;font-size:1.4rem;border-bottom:1px solid #333;padding-bottom:10px;">Legal & Privacy Policy</h2>
-
         <p style="font-size:0.75rem;color:#888;margin-bottom:20px;">Effective Date: April 2026</p>
-
         <section style="margin-bottom:25px;">
-
             <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">1. Data Collection & Anonymity</h3>
-
             <p style="font-size:0.85rem;color:#aaa;">EagleVoice does not require or collect names, email addresses, Student IDs, or account registrations. When you submit feedback, we collect:</p>
-
             <ul style="font-size:0.85rem;color:#aaa;padding-left:20px;margin-top:8px;">
-
                 <li>The text content you provide</li>
-
                 <li>Basic technical data (timestamps and system identifiers)</li>
-
                 <li>Limited technical info processed by our provider (Supabase) for security</li>
-
             </ul>
-
         </section>
-
         <hr style="border:0;border-top:1px solid #333;margin:20px 0;">
-
         <section style="margin-bottom:25px;">
-
             <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">2. How Data Is Stored</h3>
-
             <p style="font-size:0.85rem;color:#aaa;">Submissions are securely stored using <strong>Supabase</strong>. While reasonable safeguards are used, no digital system can guarantee absolute security.</p>
-
         </section>
-
         <section style="margin-bottom:25px;">
-
             <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">3. Purpose of Data Use</h3>
-
             <p style="font-size:0.85rem;color:#aaa;">Feedback is used exclusively for student advocacy, including identifying concerns and sharing aggregated insights with university stakeholders like the PSAC. No data is sold for advertising.</p>
-
         </section>
-
         <hr style="border:0;border-top:1px solid #333;margin:20px 0;">
-
         <section style="margin-bottom:25px;">
-
             <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">4. Website Analytics</h3>
-
             <p style="font-size:0.85rem;color:#aaa;">To better understand how the community uses EagleVoice and to improve the platform, we use <a href="https://analytics.google.com/" target="_blank" rel="noopener" style="color:#00853e;">Google Analytics</a>. This service collects non-personally identifiable information such as page views, session duration, and general device information.</p>
-
             <p style="font-size:0.85rem;color:#aaa;margin-top:10px;">We do not intentionally collect personally identifiable information such as your name, Student ID, or email address through these tools. Google Analytics may process certain technical identifiers such as anonymized IP addresses per their own <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:#00853e;">privacy policy</a>. IP anonymization is enabled on this platform.</p>
-
             <div style="background:#222;padding:15px;border-left:4px solid #e8b84b;margin-top:14px;">
-
                 <p style="font-size:0.85rem;color:#aaa;margin:0;">You may opt out of Google Analytics tracking at any time by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" style="color:#00853e;">Google Analytics Opt-out Browser Add-on</a>.</p>
-
             </div>
-
         </section>
-
         <section style="margin-bottom:25px;">
-
             <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">5. Anonymity Notice</h3>
-
             <p style="font-size:0.85rem;color:#aaa;">EagleVoice is designed for anonymity. However, true anonymity cannot be absolutely guaranteed. Avoid including personal details if anonymity is your priority.</p>
-
         </section>
-
         <section style="margin-bottom:25px;background:#222;padding:15px;border-left:4px solid #00853e;">
-
             <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">6. Informal Platform Disclaimer</h3>
-
             <p style="font-size:0.85rem;color:#aaa;">EagleVoice is an <strong>independent initiative</strong> and not an official UNT reporting system. Submissions do not constitute formal grievances or Title IX reports.</p>
-
         </section>
-
         <section style="margin-bottom:25px;">
-
             <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">7. User Conduct</h3>
-
             <p style="font-size:0.85rem;color:#aaa;">Users agree not to submit content that is threatening, harassing, knowingly false, or in violation of university conduct policies.</p>
-
         </section>
-
         <section style="margin-bottom:25px;">
-
             <h3 style="font-size:1rem;color:#fff;margin-bottom:8px;">8. Limitation of Liability</h3>
-
             <p style="font-size:0.85rem;color:#aaa;">The platform is provided "as is." The developer is not responsible for data loss, service interruptions, or outcomes resulting from the use of this tool.</p>
-
         </section>
-
         <button onclick="closePrivacy()" style="background-color:#00853e;color:white;border:none;padding:15px;cursor:pointer;border-radius:4px;width:100%;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-top:10px;">Acknowledge & Close</button>
-
     </div>
-
 </div>
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-
 const supabaseUrl = 'https://vzdfbhlkgilljjwnedcs.supabase.co';
-
 const supabaseKey = 'sb_publishable_2mvbzN0u7AYrWlECVKoywQ_nQyQ1vdo';
-
 const sb = supabase.createClient(supabaseUrl, supabaseKey);
-
-
 
 let selectedTag = null;
 
-
-
-// --- 1. YOUR PUBLIC KEY ---
-
-const EAGLEVOICE_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
-
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs5aXl4T0JRqBvVgRtEVW
-
-vKbLnSEu7e4s+PWxIRwaiL5HbyOf8n72GY5LTKSZ9TtkQDXFnUwgBFM5kma5r9YN
-
-H7xpWtZ4+gDGpFG/j1bl5r8VBGFKhV1Wquv7/sKfHaT/0stTi9lVvkOKiq+go7cD
-
-lDE9Z5oy/bY3x+pUrgOd2P5gPgEthr7NCy1q3kZFPDDQt6nKIz2ZWMIRxtygE8Aj
-
-EEh/NeaEus1BvThTikLQ34LeL86Xk/4ea+mV1TnuE28Gx9DA8OEUNOTONfUHqKDX
-
-BBgr8T3LJ9ydmTycUQqKGrnyy3Y00/WZPKnhP51laiAt6JMl9BAG8NSJS60484Dw
-
-4QIDAQAB
-
------END PUBLIC KEY-----`;
-
-
-
-// --------------------------
-
-
-
 function toggleTag(el) {
-
     const chips = document.querySelectorAll('.tag-chip');
-
     const customWrapper = document.getElementById('custom-topic-wrapper');
-
     const customInput = document.getElementById('custom-topic-input');
-
     const mhResources = document.getElementById('mental-health-resources');
-
     
-
     if (el.classList.contains('selected')) { 
-
         el.classList.remove('selected'); 
-
         selectedTag = null; 
-
         customWrapper.style.display = 'none';
-
         mhResources.style.display = 'none';
-
     } else { 
-
         chips.forEach(c => c.classList.remove('selected')); 
-
         el.classList.add('selected'); 
-
         selectedTag = el.dataset.tag; 
 
-
-
         if (selectedTag === 'Mental Health') {
-
             mhResources.style.display = 'block';
-
         } else {
-
             mhResources.style.display = 'none';
-
         }
-
         
-
         if (selectedTag === 'Other') {
-
             customWrapper.style.display = 'block';
-
             customInput.focus();
-
         } else {
-
             customWrapper.style.display = 'none';
-
             customInput.value = '';
-
         }
-
     }
-
 }
-
-
 
 function updateCharCount(el) {
-
     const len = el.value.length;
-
     const counter = document.getElementById('charCounter');
-
     counter.textContent = len + ' / 600';
-
     counter.classList.remove('warn', 'over');
-
     if (len > 540) counter.classList.add('over');
-
     else if (len > 450) counter.classList.add('warn');
-
 }
-
-
 
 function toggleMission() { document.getElementById('missionPopup').classList.toggle('show'); }
 
-
-
 async function handleSubmit() {
-
     const card    = document.getElementById('panel-submit');
-
     const success = document.getElementById('successMsg');
-
     const footer  = document.getElementById('footerSection');
-
     const input   = document.getElementById('thought-input');
-
     const button  = document.querySelector('.submit-btn');
-
     const customInput = document.getElementById('custom-topic-input');
-
     const feedback = input.value.trim();
-
-
 
     if (!feedback) { input.style.borderColor = 'red'; return; }
 
-
-
     button.innerText  = 'Transmitting...';
-
     button.disabled   = true;
-
     button.style.opacity = '0.7';
-
     button.style.cursor  = 'not-allowed';
 
-
-
     let finalTopic = selectedTag;
-
     if (selectedTag === 'Other' && customInput.value.trim()) {
-
         finalTopic = `Other: ${customInput.value.trim()}`;
-
     }
-
-
 
     const txId = 'TX-' + Math.random().toString(36).substring(2, 8).toUpperCase();
 
-
-
-    // --- 2. ENCRYPTION LOGIC ---
-// --- 2. ENCRYPTION LOGIC (CHUNKING ENABLED) ---
-    const encryptor = new JSEncrypt();
-    encryptor.setPublicKey(EAGLEVOICE_PUBLIC_KEY);
-    
-    const chunkSize = 200; // Safe limit under 245 bytes
-    let encryptedChunks = [];
-    let encryptionFailed = false;
-
-    // Loop through the feedback and encrypt it 200 characters at a time
-    for (let i = 0; i < feedback.length; i += chunkSize) {
-        let chunk = feedback.substring(i, i + chunkSize);
-        let encryptedChunk = encryptor.encrypt(chunk);
-        
-        if (!encryptedChunk) {
-            encryptionFailed = true;
-            break;
-        }
-        encryptedChunks.push(encryptedChunk);
-    }
-
-    if (encryptionFailed) {
-        console.error('Encryption failed on a chunk.');
-        button.innerText = 'Transmit Feedback';
-        button.disabled  = false;
-        button.style.opacity = '1';
-        button.style.cursor  = 'pointer';
-        alert('Security Error: Failed to secure transmission.');
-        return;
-    }
-    
-    // Stitch the encrypted chunks together with a delimiter (|||)
-    const finalScrambledPayload = encryptedChunks.join('|||');
-    // ---------------------------
-
-    // Insert the stitched payload into Supabase
+    // Insert the plain text feedback directly into Supabase
     const { error } = await sb
         .from('eagle_voice')
-        .insert([{ tx_id: txId, context: finalScrambledPayload, topic: finalTopic, allow_live_feed: false }]);
-
-
+        .insert([{ tx_id: txId, context: feedback, topic: finalTopic, allow_live_feed: false }]);
 
     if (error) {
-
         console.error('Error:', error.message);
-
         button.innerText = 'Transmit Feedback';
-
         button.disabled  = false;
-
         button.style.opacity = '1';
-
         button.style.cursor  = 'pointer';
-
         alert('Transmission failed: ' + error.message);
-
         return;
-
     }
 
-
-
     const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
-
     document.getElementById('receipt-id').innerText = txId;
-
-    document.getElementById('receipt-topic').innerText = finalTopic ? finalTopic.toUpperCase() : 'UNSPECIFIED';
-
     document.getElementById('receipt-time').innerText = timestamp;
-
-
+    document.getElementById('receipt-topic').innerText = finalTopic || 'UNSPECIFIED';
 
     card.classList.add('submitted');
-
     success.classList.add('show');
-
     footer.classList.add('hide');
-
 }
-
-
-
-function copyTxId(event) {
-
-    const id = document.getElementById('receipt-id').innerText;
-
-    navigator.clipboard.writeText(id).then(() => {
-
-        const btn = event.target;
-
-        const originalText = btn.innerText;
-
-        btn.innerText = "COPIED";
-
-        btn.style.background = "var(--green-dim)";
-
-        btn.style.color = "#fff";
-
-        setTimeout(() => { 
-
-            btn.innerText = originalText; 
-
-            btn.style.background = "transparent";
-
-            btn.style.color = "var(--unt-green)";
-
-        }, 1500);
-
-    });
-
-}
-
-
 
 function resetForm() {
-
     const card    = document.getElementById('panel-submit');
-
     const success = document.getElementById('successMsg');
-
     const footer  = document.getElementById('footerSection');
-
     const input   = document.getElementById('thought-input');
-
     const button  = document.querySelector('.submit-btn');
 
-    const customWrapper = document.getElementById('custom-topic-wrapper');
-
-    const customInput = document.getElementById('custom-topic-input');
-
-
-
-    success.style.transition = 'none';
-
     success.classList.remove('show');
-
-    input.value = '';
-
-    input.style.borderColor = '#333333';
-
-    
-
-    customInput.value = '';
-
-    customWrapper.style.display = 'none';
-
-    document.getElementById('mental-health-resources').style.display = 'none';
-
-
-
-    document.getElementById('charCounter').textContent = '0 / 600';
-
-    document.getElementById('charCounter').classList.remove('warn', 'over');
-
-    document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('selected'));
-
-    selectedTag = null;
-
-    
-
-    document.getElementById('receipt-id').innerText = 'TX-000000';
-
-    document.getElementById('receipt-topic').innerText = 'UNSPECIFIED';
-
-    document.getElementById('receipt-time').innerText = '00:00:00';
-
-    
-
+    card.classList.remove('submitted');
     footer.classList.remove('hide');
 
-    card.classList.remove('submitted');
+    input.value = '';
+    input.style.borderColor = 'var(--border)';
+    document.getElementById('charCounter').textContent = '0 / 600';
+    
+    document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('selected'));
+    document.getElementById('custom-topic-wrapper').style.display = 'none';
+    document.getElementById('custom-topic-input').value = '';
+    document.getElementById('mental-health-resources').style.display = 'none';
+    selectedTag = null;
 
     button.innerText = 'Transmit Feedback';
-
     button.disabled  = false;
-
     button.style.opacity = '1';
-
     button.style.cursor  = 'pointer';
-
-    
-
-    setTimeout(() => { success.style.transition = 'all 0.8s ease 0.2s'; }, 100);
-
 }
 
-
-
-function copyEmailToClipboard() {
-
-    navigator.clipboard.writeText('eaglevoice.info@gmail.com').then(() => {
-
-        const a = document.getElementById('copyAlert');
-
-        a.style.opacity = '1';
-
-        setTimeout(() => { a.style.opacity = '0'; }, 2000);
-
-    }).catch(err => console.error('Failed to copy:', err));
-
+function copyTxId(e) {
+    const txId = document.getElementById('receipt-id').innerText;
+    navigator.clipboard.writeText(txId).then(() => {
+        const btn = e.target;
+        const originalText = btn.innerText;
+        btn.innerText = 'Copied!';
+        setTimeout(() => { btn.innerText = originalText; }, 1500);
+    });
 }
 
+function openPrivacy() {
+    document.getElementById('privacyModal').style.display = 'block';
+}
 
+function closePrivacy() {
+    document.getElementById('privacyModal').style.display = 'none';
+}
 
-function openPrivacy()  { document.getElementById('privacyModal').style.display = 'block'; document.body.style.overflow = 'hidden'; }
-
-function closePrivacy() { document.getElementById('privacyModal').style.display = 'none';  document.body.style.overflow = 'auto'; }
-
-window.onclick = function(e) { if (e.target === document.getElementById('privacyModal')) closePrivacy(); };
-
-
-
+window.onclick = function(event) {
+    const modal = document.getElementById('privacyModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+}
 </script>
-
 </body>
-
-</html> 
-
+</html>
