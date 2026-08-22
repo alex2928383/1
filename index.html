@@ -103,6 +103,7 @@
             text-align: left;
         }
         .mission-overlay.show { display: flex; }
+        .mission-content { cursor: default; }
         .mission-content h3 { color: var(--unt-green); letter-spacing: 2px; margin-bottom: 15px; border-bottom: 1px solid var(--border); font-size: 1.1rem; }
         .mission-content p { font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 20px; }
         .info-trigger { position: absolute; top: 15px; right: 20px; font-size: 0.7rem; color: var(--text-secondary); cursor: pointer; letter-spacing: 1px; font-weight: 600; min-height: var(--touch); display: flex; align-items: center; }
@@ -241,12 +242,19 @@
     <div id="missionPopup" class="mission-overlay">
         <div class="mission-content">
             <h3>ABOUT EAGLEVOICE</h3>
-            <p><strong>EagleVoice</strong> is an independent, data-driven initiative created by Alex Martin to bridge the gap between the student body and university leadership.</p>
-            <p style="margin-top:10px;">As a member of the President's Student Advisory Committee, I use this platform to gather real, unfiltered student input. High-priority insights and recurring themes are analyzed bi-weekly and formally presented to <strong>the University President</strong>.</p>
+            <p><strong>EagleVoice</strong> is an independent, student-led feedback initiative created to help bridge the gap between the student body and campus leadership.</p>
+            <p style="margin-top:10px;">As a student representative, I use this platform to gather candid, unfiltered campus perspectives. Recurring themes and aggregated insights are analyzed to help inform student advocacy discussions, committee work, and campus feedback initiatives.</p>
             
-            <div style="margin-top:15px; padding: 12px; background: rgba(0, 133, 62, 0.08); border-left: 2px solid var(--unt-green);">
-                <strong style="color: var(--text-primary); font-size: 0.8rem; font-family: monospace; letter-spacing: 1px; display: block; margin-bottom: 5px;">> YOUR PRIVACY MATTERS</strong>
-                <p style="margin-bottom: 0; font-size: 0.8rem;">To ensure uncompromised honesty, this portal is designed to be completely anonymous. We do not collect names or student IDs. Feedback is routed directly to a secure database so committee members can review the insights without ever compromising your identity.</p>
+            <!-- Added onclick and cursor: pointer so clicking the notice dismisses the modal -->
+            <div onclick="toggleMission()" style="margin-top:15px; padding: 12px; background: rgba(0, 133, 62, 0.08); border-left: 2px solid var(--unt-green); cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                <strong style="color: var(--text-primary); font-size: 0.8rem; font-family: monospace; letter-spacing: 1px; display: block; margin-bottom: 5px;">> YOUR PRIVACY & USAGE</strong>
+                <p style="margin-bottom: 0; font-size: 0.8rem;">To ensure uncompromised honesty, this portal is completely anonymous. We do not collect names, emails, or student IDs. Submissions are routed directly to an encrypted database to analyze high-level trends without ever compromising your identity.</p>
+            </div>
+
+            <!-- Added onclick and cursor: pointer so clicking the notice dismisses the modal -->
+            <div onclick="toggleMission()" style="margin-top:15px; padding: 12px; background: rgba(232, 84, 84, 0.08); border-left: 2px solid var(--red); cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                <strong style="color: var(--text-primary); font-size: 0.8rem; font-family: monospace; letter-spacing: 1px; display: block; margin-bottom: 5px;">> NOTICE</strong>
+                <p style="margin-bottom: 0; font-size: 0.8rem;">EagleVoice is an independent, student-run platform and is not an official university department or emergency service. It is not monitored 24/7. For campus emergencies, safety concerns, Title IX reports, or formal university grievances, please contact official campus resources directly.</p>
             </div>
 
             <button type="button" onclick="toggleMission()" class="close-btn" style="margin-top:20px;">BACK TO FEEDBACK</button>
@@ -301,7 +309,7 @@
         </svg>
         <div>
             <strong style="color: #fff; font-family: monospace; letter-spacing: 1px; display: block; margin-bottom: 4px;">SECURE TRANSMISSION CHANNEL</strong>
-            Your feedback is routed directly to committee records for review and aggregation.
+            Your feedback is routed directly to an encrypted database for review and aggregation.
         </div>
     </div>
 
@@ -336,10 +344,10 @@
         <div style="font-size: 0.65rem; color: #666; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; padding-left: 2px;">System Routing</div>
         
         <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; border-left: 1px solid #333; padding-left: 16px;">
-            <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Committee members review logs bi-weekly.</div>
-            <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Recurring themes compiled into briefing.</div>
-            <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Actionable insights sent to President's Office.</div>
-            <div><span style="color: var(--yellow); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Retain ID above to track status with Admin.</div>
+            <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Logs reviewed for high-priority themes.</div>
+            <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Recurring trends compiled into briefings.</div>
+            <div style="margin-bottom: 8px;"><span style="color: var(--unt-green); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Actionable insights inform advocacy initiatives.</div>
+            <div><span style="color: var(--yellow); font-family: monospace; font-weight: bold; margin-right: 6px;">></span> Retain ID above to track status.</div>
         </div>
     </div>
 
@@ -573,10 +581,17 @@ function closePrivacy() {
     document.getElementById('privacyModal').style.display = 'none';
 }
 
+// Updated window.onclick function to close both the Privacy Modal and the About Mission Popup if clicked outside of them
 window.onclick = function(event) {
-    const modal = document.getElementById('privacyModal');
-    if (event.target === modal) {
-        modal.style.display = 'none';
+    const privacyModal = document.getElementById('privacyModal');
+    const missionModal = document.getElementById('missionPopup');
+    
+    if (event.target === privacyModal) {
+        privacyModal.style.display = 'none';
+    }
+    
+    if (event.target === missionModal) {
+        missionModal.classList.remove('show');
     }
 }
 </script>
